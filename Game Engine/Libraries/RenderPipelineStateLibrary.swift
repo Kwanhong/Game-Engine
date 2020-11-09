@@ -33,19 +33,23 @@ protocol RenderPipelineState {
     var renderPipelineState: MTLRenderPipelineState { get }
 }
 
-struct BasicRenderPipelineState : RenderPipelineState {
+struct BasicRenderPipelineState: RenderPipelineState {
     var name: String = "BasicRenderPipelineState"
-    var renderPipelineState: MTLRenderPipelineState {
+    var renderPipelineState: MTLRenderPipelineState
+    
+    init() {
         
-        var renderPipelineState : MTLRenderPipelineState!
+        var renderPipelineState: MTLRenderPipelineState!
         
         do {
-            renderPipelineState = try Engine.device.makeRenderPipelineState(descriptor: RenderPipelineDescriptorLibrary.getRenderPipelineDescriptor(.basic))
+            renderPipelineState = try Engine.device.makeRenderPipelineState(
+                descriptor: RenderPipelineDescriptorLibrary.getRenderPipelineDescriptor(.basic)
+            )
         } catch {
-            print("Error, Make Render pipelineState : \(name), \(error)")
+            print("Error, Make Render pipelineState: \(name), \(error)")
         }
         
-        return renderPipelineState
+        self.renderPipelineState = renderPipelineState
     }
 }
 

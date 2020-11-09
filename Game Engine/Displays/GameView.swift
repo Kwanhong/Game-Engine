@@ -9,8 +9,7 @@ import MetalKit
 
 class GameView: MTKView {
     
-    var vertices: [Vertex]!
-    var vertexBuffer: MTLBuffer!
+    var renderer: Renderer!
     
     required init(coder: NSCoder) {
         
@@ -22,57 +21,105 @@ class GameView: MTKView {
         self.clearColor = Preferences.clearColor
         self.colorPixelFormat = Preferences.mainPixelFormat
         
-        createVertices()
-        createBuffers()
+        self.renderer = Renderer(self)
+        self.delegate = renderer
         
     }
     
-    func createVertices() {
-        
-        vertices = [
-            .init(position: .init( 0,  1, 0), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1, -1, 0), color: .init(0, 1, 0, 1)),
-            .init(position: .init( 1, -1, 0), color: .init(0, 0, 1, 1))
-        ]
-        
+}
+
+// Keyboard Input
+extension GameView {
+    
+    override var acceptsFirstResponder: Bool { return true }
+    
+    override func keyDown(with event: NSEvent) {
+        Keyboard.setKeyPressed(event.keyCode, isOn: true)
     }
     
-    func createBuffers() {
-        
-        vertexBuffer = Engine.device.makeBuffer(
-            bytes: vertices,
-            length: Vertex.stride(vertices.count),
-            options: []
-        )
-        
+    override func keyUp(with event: NSEvent) {
+        Keyboard.setKeyPressed(event.keyCode, isOn: false)
     }
     
-    override func draw(_ dirtyRect: NSRect) {
+}
+
+// Mouse Button Input
+extension GameView {
+    
+    override func mouseDown(with event: NSEvent) {
+        Mouse.setMouseButtonPressed(button: event.buttonNumber, isOn: true)
+    }
+    
+    override func mouseUp(with event: NSEvent) {
+        Mouse.setMouseButtonPressed(button: event.buttonNumber, isOn: false)
+    }
+    
+    override func rightMouseDown(with event: NSEvent) {
+        Mouse.setMouseButtonPressed(button: event.buttonNumber, isOn: true)
+    }
+    
+    override func rightMouseUp(with event: NSEvent) {
+        Mouse.setMouseButtonPressed(button: event.buttonNumber, isOn: false)
+    }
+    
+    override func otherMouseDown(with event: NSEvent) {
+        Mouse.setMouseButtonPressed(button: event.buttonNumber, isOn: true)
+    }
+    
+    override func otherMouseUp(with event: NSEvent) {
+        Mouse.setMouseButtonPressed(button: event.buttonNumber, isOn: false)
+    }
+    
+}
+
+// Mouse Movement Input
+extension GameView {
+    
+    override func scrollWheel(with event: NSEvent) {
+        Mouse.scrollMouse(deltaY: Float(event.deltaY))
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
+        setMouseDeltaPosition(event: event)
+    }
+    
+    override func mouseDragged(with event: NSEvent) {
+        setMouseDeltaPosition(event: event)
+    }
+    
+    override func rightMouseDragged(with event: NSEvent) {
+        setMouseDeltaPosition(event: event)
+    }
+    
+    override func otherMouseDragged(with event: NSEvent) {
+        setMouseDeltaPosition(event: event)
+    }
+    
+    override func updateTrackingAreas() {
+        let area = NSTrackingArea(
+            rect: self.bounds,
+            options: [.activeAlways, .mouseMoved, .enabledDuringMouseDrag],
+            owner: self, userInfo: nil
+        )
+        self.addTrackingArea(area)
+    }
+    
+    private func setMouseDeltaPosition(event: NSEvent) {
         
-        guard let drawable = self.currentDrawable,
-              let renderPassDescriptor = self.currentRenderPassDescriptor else {
-            return
-        }
-        
-        let commandBuffer = Engine.commandQueue.makeCommandBuffer()
-        let renderCommandEncoder = commandBuffer?.makeRenderCommandEncoder(
-            descriptor: renderPassDescriptor
+        let overallLocation = simd_float2(
+            Float(event.locationInWindow.x),
+            Float(event.locationInWindow.y)
         )
         
-        renderCommandEncoder?.setRenderPipelineState(RenderPipelineStateLibrary.getRenderPipelineState(.basic))
-        
-        renderCommandEncoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-        renderCommandEncoder?.drawPrimitives(
-            type: .triangle,
-            vertexStart: 0,
-            vertexCount: vertices.count
+        let deltaPosition = simd_float2(
+            Float(event.deltaX),
+            Float(event.deltaY)
         )
         
-        renderCommandEncoder?.endEncoding()
-        
-        commandBuffer?.present(drawable)
-        commandBuffer?.commit()
-        
+        Mouse.setMousePositionChange(
+            overallPosition: overallLocation,
+            deltaPosition: deltaPosition
+        )
     }
     
 }

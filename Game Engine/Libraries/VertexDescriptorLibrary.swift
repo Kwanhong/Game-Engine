@@ -29,15 +29,20 @@ class VertexDescriptorLibrary {
 }
 
 protocol VertexDescriptor {
+    
     var name: String { get }
     var vertexDescriptor: MTLVertexDescriptor { get }
+    
 }
 
-struct BasicVertexDescriptor : VertexDescriptor {
+struct BasicVertexDescriptor: VertexDescriptor {
+    
     var name: String = "BasicVertexDescriptor"
-    var vertexDescriptor: MTLVertexDescriptor {
+    var vertexDescriptor: MTLVertexDescriptor
+    
+    init() {
         
-        let vertexDescriptor = MTLVertexDescriptor()
+        vertexDescriptor = MTLVertexDescriptor()
         
         // Position
         vertexDescriptor.attributes[0].format = .float3
@@ -50,7 +55,6 @@ struct BasicVertexDescriptor : VertexDescriptor {
         vertexDescriptor.attributes[1].offset = simd_float3.size()
         
         vertexDescriptor.layouts[0].stride = Vertex.stride()
-        
-        return vertexDescriptor
     }
+    
 }

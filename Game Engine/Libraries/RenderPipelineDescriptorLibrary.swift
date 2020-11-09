@@ -33,18 +33,21 @@ protocol RenderPipelineDescriptor {
     var renderPipelineDescriptor: MTLRenderPipelineDescriptor { get }
 }
 
-struct BasicRenderPipelineDescriptor : RenderPipelineDescriptor {
+struct BasicRenderPipelineDescriptor: RenderPipelineDescriptor {
+    
     var name: String = "BasicRenderPipelineDescriptor"
-    var renderPipelineDescriptor: MTLRenderPipelineDescriptor {
+    var renderPipelineDescriptor: MTLRenderPipelineDescriptor
+    
+    init() {
         
-        let renderPipelineDescriptor = MTLRenderPipelineDescriptor()
+        renderPipelineDescriptor = MTLRenderPipelineDescriptor()
         
         renderPipelineDescriptor.colorAttachments[0].pixelFormat = Preferences.mainPixelFormat
         renderPipelineDescriptor.vertexFunction = ShaderLibrary.getVertexFunction(.basic)
         renderPipelineDescriptor.fragmentFunction = ShaderLibrary.getFragmentFunction(.basic)
         renderPipelineDescriptor.vertexDescriptor = VertexDescriptorLibrary.getVertexDescriptor(.basic)
         
-        return renderPipelineDescriptor
     }
+    
 }
 

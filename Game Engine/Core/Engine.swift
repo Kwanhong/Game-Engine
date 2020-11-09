@@ -20,5 +20,8 @@ class Engine {
         VertexDescriptorLibrary.initialize()
         RenderPipelineDescriptorLibrary.initialize()
         RenderPipelineStateLibrary.initialize()
+        MeshLibrary.initialize()
+        SceneManager.initialize(Preferences.startingSceneType)
     }
+    
 }

@@ -18,10 +18,14 @@ struct RasterizerData {
     float4 color;
 };
 
-vertex RasterizerData basic_vertex_shader(const VertexIn vertexIn [[stage_in]]) {
+struct ModelConstants {
+    float4x4 modelMatrix;
+};
+
+vertex RasterizerData basic_vertex_shader(const VertexIn vertexIn [[stage_in]], constant ModelConstants &modelConstants [[buffer(1)]]) {
     
     RasterizerData data;
-    data.position = float4(vertexIn.position, 1);
+    data.position = modelConstants.modelMatrix * float4(vertexIn.position, 1);
     data.color = vertexIn.color;
     
     return data;

@@ -1,0 +1,83 @@
+//
+//  Mouse.swift
+//  Game Engine
+//
+//  Created by 박관홍 on 2020/11/07.
+//
+
+import Foundation
+import MetalKit
+
+enum mouseButtonCode: Int {
+    
+    case left = 0
+    case right = 1
+    case center = 2
+    
+}
+
+class Mouse {
+    
+    private static var mouseButtonCount: Int = 12
+    private static var mouseButtons: [Bool] = .init(repeating: false, count: mouseButtonCount)
+    
+    private static var overallMousePosition: simd_float2 = .zero
+    private static var mouseDeltaPosition: simd_float2 = .zero
+    
+    private static var scrollWheelPosition: Float = .zero
+    private static var lastWheelPosition: Float = .zero
+    private static var scrollWheelChange: Float = .zero
+    
+    public static func setMouseButtonPressed(button: Int, isOn: Bool) {
+        mouseButtons[button] = isOn
+    }
+    
+    public static func isMouseButtonPressed(button: mouseButtonCode)->Bool {
+        return mouseButtons[Int(button.rawValue)]
+    }
+    
+    public static func setOverallMousePosition(position: simd_float2) {
+        overallMousePosition = position
+    }
+    
+    public static func setMousePositionChange(overallPosition: simd_float2, deltaPosition: simd_float2) {
+        overallMousePosition = overallPosition
+        mouseDeltaPosition += deltaPosition
+    }
+    
+    public static func scrollMouse(deltaY: Float) {
+        scrollWheelPosition += deltaY
+        scrollWheelChange += deltaY
+    }
+    
+    public static func getMouseWindowPosition()->simd_float2 {
+        return overallMousePosition
+    }
+    
+    public static func getWeelDeltaPosition()->Float {
+        let result = scrollWheelChange
+        scrollWheelChange = .zero
+        return result
+    }
+    
+    public static func getMouseDeltaPosX()->Float {
+        let result = mouseDeltaPosition.x
+        mouseDeltaPosition.x = .zero
+        return result
+    }
+    
+    public static func getMouseDeltaPosY()->Float {
+        let result = mouseDeltaPosition.y
+        mouseDeltaPosition.y = .zero
+        return result
+    }
+    
+    public static func getMouseViewportPosition()->simd_float2 {
+        let position = overallMousePosition
+        let screenSize = Renderer.screenSize
+        let x = Math.map(position.x, start1: .zero, stop1: screenSize.x, start2: -1, stop2: 1)
+        let y = Math.map(position.y, start1: .zero, stop1: screenSize.y, start2: -1, stop2: 1)
+        return simd_float2(x, y)
+    }
+    
+}
