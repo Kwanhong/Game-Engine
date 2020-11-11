@@ -122,9 +122,9 @@ extension Math {
         min: Float = .zero, max: Float = .greatestFiniteMagnitude
     )->Vector2f {
         if getMagnitude(of: vector) < min {
-            return getVector(vector, withMagnitudeOf: min)
+            return getVector(direction: vector, withMagnitudeOf: min)
         } else if getMagnitude(of: vector) > max {
-            return getVector(vector, withMagnitudeOf: max)
+            return getVector(direction: vector, withMagnitudeOf: max)
         } else {
             return vector
         }
@@ -135,9 +135,9 @@ extension Math {
         min: Float = .zero, max: Float = .greatestFiniteMagnitude
     )->Vector3f {
         if getMagnitude(of: vector) < min {
-            return getVector(vector, withMagnitudeOf: min)
+            return getVector(direction: vector, withMagnitudeOf: min)
         } else if getMagnitude(of: vector) > max {
-            return getVector(vector, withMagnitudeOf: max)
+            return getVector(direction: vector, withMagnitudeOf: max)
         } else {
             return vector
         }
@@ -151,12 +151,12 @@ extension Math {
         return sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
     }
     
-    static func getVector(_ vector: Vector2f, withMagnitudeOf magnitude: Float)->Vector2f {
-        return getNormalized(vector: vector) * magnitude
+    static func getVector(direction: Vector2f, withMagnitudeOf magnitude: Float)->Vector2f {
+        return getNormalized(vector: direction) * magnitude
     }
     
-    static func getVector(_ vector: Vector3f, withMagnitudeOf magnitude: Float)->Vector3f {
-        return getNormalized(vector: vector) * magnitude
+    static func getVector(direction: Vector3f, withMagnitudeOf magnitude: Float)->Vector3f {
+        return getNormalized(vector: direction) * magnitude
     }
     
     static func setMagnitude(_ magnitude: Float, to vector: inout Vector2f) {

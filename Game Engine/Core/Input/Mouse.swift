@@ -81,7 +81,7 @@ class Mouse {
     }
     
     public static func getMouseCameraPosition(camera: Camera)->Vector2f {
-        return getMouseViewportPosition() + camera.position.asVector2
+        return getMouseViewportPosition() + camera.position.asVector2f
     }
     
 }

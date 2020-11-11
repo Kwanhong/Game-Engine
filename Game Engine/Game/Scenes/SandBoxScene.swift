@@ -31,8 +31,8 @@ class SandBoxScene: Scene {
         let mousePos = Mouse.getMouseCameraPosition(camera: camera)
         var posPerPlayer = mousePos
         
-        let v1 = Math.getVector(mousePos, withMagnitudeOf: 2)
-        let v2 = Math.getVector(players.first?.position.asVector2 ?? .zero, withMagnitudeOf: 1)
+        let v1 = Math.getVector(direction: mousePos, withMagnitudeOf: 2)
+        let v2 = Math.getVector(direction: players.first?.position.asVector2f ?? .zero, withMagnitudeOf: 1)
         let theta = Math.getAngle(of: v1 - v2) - .pi * 0.5
         
         for player in players {
