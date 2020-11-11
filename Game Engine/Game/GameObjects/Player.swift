@@ -9,11 +9,8 @@ import Foundation
 
 class Player: GameObject {
     
-    var time: Float = .zero
-    
-    init() {
-        super.init(meshType: .triangleCustom)
-        self.scale = .init(repeating: 0.1)
+    override func start() {
+        self.scale = .init(repeating: 0.07)
     }
     
 }

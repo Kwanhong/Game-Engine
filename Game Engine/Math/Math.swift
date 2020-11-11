@@ -8,18 +8,23 @@
 import Foundation
 import MetalKit
 
+typealias Vector2f = simd_float2
+typealias Vector3f = simd_float3
+typealias Vector4f = simd_float4
+typealias Matrix4x4f = matrix_float4x4
+
 class Math {
     
-    static var xAxis: simd_float3 {
-        return simd_float3(1, 0, 0)
+    static var xAxis: Vector3f {
+        return Vector3f(1, 0, 0)
     }
     
-    static var yAxis: simd_float3 {
-        return simd_float3(0, 1, 0)
+    static var yAxis: Vector3f {
+        return Vector3f(0, 1, 0)
     }
     
-    static var zAxis: simd_float3 {
-        return simd_float3(0, 0, 1)
+    static var zAxis: Vector3f {
+        return Vector3f(0, 0, 1)
     }
     
 }
@@ -80,8 +85,8 @@ extension Math {
 extension Math {
     
     static func getAreaOf(
-        v1: simd_float2, v2: simd_float2,
-        v3: simd_float2, v4: simd_float2
+        v1: Vector2f, v2: Vector2f,
+        v3: Vector2f, v4: Vector2f
     )->Float {
         return 0.5 *
         (
@@ -91,7 +96,7 @@ extension Math {
     }
     
     static func limit(
-        _ vector: inout simd_float2,
+        _ vector: inout Vector2f,
         min: Float = .zero, max: Float = .greatestFiniteMagnitude
     ) {
         if getMagnitude(of: vector) < min {
@@ -102,7 +107,7 @@ extension Math {
     }
     
     static func limit(
-        _ vector: inout simd_float3,
+        _ vector: inout Vector3f,
         min: Float = .zero, max: Float = .greatestFiniteMagnitude
     ) {
         if getMagnitude(of: vector) < min {
@@ -113,9 +118,9 @@ extension Math {
     }
     
     static func getLimited(
-        vector: simd_float2,
+        vector: Vector2f,
         min: Float = .zero, max: Float = .greatestFiniteMagnitude
-    )->simd_float2 {
+    )->Vector2f {
         if getMagnitude(of: vector) < min {
             return getVector(vector, withMagnitudeOf: min)
         } else if getMagnitude(of: vector) > max {
@@ -126,9 +131,9 @@ extension Math {
     }
     
     static func getLimited(
-        vector: inout simd_float3,
+        vector: inout Vector3f,
         min: Float = .zero, max: Float = .greatestFiniteMagnitude
-    )->simd_float3 {
+    )->Vector3f {
         if getMagnitude(of: vector) < min {
             return getVector(vector, withMagnitudeOf: min)
         } else if getMagnitude(of: vector) > max {
@@ -138,77 +143,77 @@ extension Math {
         }
     }
     
-    static func getMagnitude(of vector: simd_float2)->Float {
+    static func getMagnitude(of vector: Vector2f)->Float {
         return sqrt(vector.x * vector.x + vector.y * vector.y)
     }
     
-    static func getMagnitude(of vector: simd_float3)->Float {
+    static func getMagnitude(of vector: Vector3f)->Float {
         return sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
     }
     
-    static func getVector(_ vector: simd_float2, withMagnitudeOf magnitude: Float)->simd_float2 {
+    static func getVector(_ vector: Vector2f, withMagnitudeOf magnitude: Float)->Vector2f {
         return getNormalized(vector: vector) * magnitude
     }
     
-    static func getVector(_ vector: simd_float3, withMagnitudeOf magnitude: Float)->simd_float3 {
+    static func getVector(_ vector: Vector3f, withMagnitudeOf magnitude: Float)->Vector3f {
         return getNormalized(vector: vector) * magnitude
     }
     
-    static func setMagnitude(_ magnitude: Float, to vector: inout simd_float2) {
+    static func setMagnitude(_ magnitude: Float, to vector: inout Vector2f) {
         normalize(&vector)
         vector *= magnitude
     }
     
-    static func setMagnitude(_ magnitude: Float, to vector: inout simd_float3) {
+    static func setMagnitude(_ magnitude: Float, to vector: inout Vector3f) {
         normalize(&vector)
         vector *= magnitude
     }
     
-    static func getNormalized(vector: simd_float2)->simd_float2 {
+    static func getNormalized(vector: Vector2f)->Vector2f {
         let magnitude = getMagnitude(of: vector)
         return vector / magnitude
     }
     
-    static func getNormalized(vector: simd_float3)->simd_float3 {
+    static func getNormalized(vector: Vector3f)->Vector3f {
         let magnitude = getMagnitude(of: vector)
         return vector / magnitude
     }
     
-    static func normalize(_ vector: inout simd_float2) {
+    static func normalize(_ vector: inout Vector2f) {
         let magnitude = getMagnitude(of: vector)
         vector = vector / magnitude
     }
     
-    static func normalize(_ vector: inout simd_float3) {
+    static func normalize(_ vector: inout Vector3f) {
         let magnitude = getMagnitude(of: vector)
         vector = vector / magnitude
     }
     
-    static func getDistance(of pos1: simd_float2, to pos2: simd_float2)->Float {
+    static func getDistance(of pos1: Vector2f, to pos2: Vector2f)->Float {
         return sqrt(
             pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2)
         )
     }
     
-    static func getDistance(of pos1: simd_float3, to pos2: simd_float3)->Float {
+    static func getDistance(of pos1: Vector3f, to pos2: Vector3f)->Float {
         return sqrt(
             pow(pos1.x - pos2.x, 2) + pow(pos1.y - pos2.y, 2) + pow(pos1.z - pos2.z, 2)
         )
     }
     
-    static func getAngle(of vector: simd_float2)->Float {
+    static func getAngle(of vector: Vector2f)->Float {
         return atan2(vector.y, vector.x)
     }
     
-    static func rotate(vector: inout simd_float2, to angle: Float) {
-        vector = simd_float2(
+    static func rotate(vector: inout Vector2f, to angle: Float) {
+        vector = Vector2f(
             cos(angle) * vector.x - sin(angle) * vector.y,
             sin(angle) * vector.x + cos(angle) * vector.y
         )
     }
     
-    static func getRotated(vector: simd_float2, to angle: Float)->simd_float2 {
-        return simd_float2(
+    static func getRotated(vector: Vector2f, to angle: Float)->Vector2f {
+        return Vector2f(
             cos(angle) * vector.x - sin(angle) * vector.y,
             sin(angle) * vector.x + cos(angle) * vector.y
         )
@@ -217,67 +222,107 @@ extension Math {
 }
 
 // Vector2
-extension simd_float2 {
+extension Vector2f {
     
-    var vector3: simd_float3 {
-        return simd_float3(self.x, self.y, .zero)
+    var asVector3f: Vector3f {
+        return Vector3f(self.x, self.y, .zero)
+    }
+    
+    var magnitude: Float {
+        return Math.getMagnitude(of: self)
+    }
+    
+    var normalized: Vector2f {
+        return Math.getNormalized(vector: self)
+    }
+    
+    mutating func setMagnitude(to magnitude: Float) {
+        Math.setMagnitude(magnitude, to: &self)
+    }
+    
+    mutating func normalize() {
+        Math.normalize(&self)
     }
     
 }
 
 // Vector3
-extension simd_float3 {
+extension Vector3f {
     
-    var vector2: simd_float2 {
-        return simd_float2(self.x, self.y)
+    var asVector2f: Vector2f {
+        return Vector2f(self.x, self.y)
+    }
+    
+    var magnitude: Float {
+        return Math.getMagnitude(of: self)
+    }
+    
+    var normalized: Vector3f {
+        return Math.getNormalized(vector: self)
+    }
+    
+    mutating func setMagnitude(to magnitude: Float) {
+        Math.setMagnitude(magnitude, to: &self)
+    }
+    
+    mutating func normalize() {
+        Math.normalize(&self)
     }
     
 }
 
 // Matrix
-extension matrix_float4x4 {
+extension Matrix4x4f {
     
-    mutating func translate(direction: simd_float3) {
+    static var identity: Matrix4x4f {
+        return matrix_identity_float4x4
+    }
+    
+    mutating func multiply(with matrix: Matrix4x4f) {
+        self = matrix_multiply(self, matrix)
+    }
+    
+    mutating func translate(direction: Vector3f) {
         
-        var result = matrix_identity_float4x4
+        var result: Matrix4x4f = .identity
         
         let x: Float = direction.x
         let y: Float = direction.y
         let z: Float = direction.z
         
         result.columns = (
-            simd_float4(1, 0, 0, 0),
-            simd_float4(0, 1, 0, 0),
-            simd_float4(0, 0, 1, 0),
-            simd_float4(x, y, z, 1)
+            Vector4f(1, 0, 0, 0),
+            Vector4f(0, 1, 0, 0),
+            Vector4f(0, 0, 1, 0),
+            Vector4f(x, y, z, 1)
         )
         
-        self = matrix_multiply(self, result)
+        self.multiply(with: result)
         
     }
     
-    mutating func scale(axis: simd_float3) {
+    mutating func scale(axis: Vector3f) {
         
-        var result = matrix_identity_float4x4
+        var result: Matrix4x4f = .identity
         
         let x: Float = axis.x
         let y: Float = axis.y
         let z: Float = axis.z
         
         result.columns = (
-            simd_float4(x, 0, 0, 0),
-            simd_float4(0, y, 0, 0),
-            simd_float4(0, 0, z, 0),
-            simd_float4(0, 0, 0, 1)
+            Vector4f(x, 0, 0, 0),
+            Vector4f(0, y, 0, 0),
+            Vector4f(0, 0, z, 0),
+            Vector4f(0, 0, 0, 1)
         )
         
-        self = matrix_multiply(self, result)
+        self.multiply(with: result)
         
     }
     
-    mutating func rotate(angle: Float, axis: simd_float3) {
+    mutating func rotate(angle: Float, axis: Vector3f) {
         
-        var result = matrix_identity_float4x4
+        var result: Matrix4x4f = .identity
         
         let x: Float = axis.x
         let y: Float = axis.y
@@ -309,13 +354,13 @@ extension matrix_float4x4 {
         let r4c4: Float = 1.0
             
         result.columns = (
-            simd_float4(r1c1, r2c1, r3c1, r4c1),
-            simd_float4(r1c2, r2c2, r3c2, r4c2),
-            simd_float4(r1c3, r2c3, r3c3, r4c3),
-            simd_float4(r1c4, r2c4, r3c4, r4c4)
+            Vector4f(r1c1, r2c1, r3c1, r4c1),
+            Vector4f(r1c2, r2c2, r3c2, r4c2),
+            Vector4f(r1c3, r2c3, r3c3, r4c3),
+            Vector4f(r1c4, r2c4, r3c4, r4c4)
         )
         
-        self = matrix_multiply(self, result)
+        self.multiply(with: result)
         
     }
 }

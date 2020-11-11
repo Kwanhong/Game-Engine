@@ -10,13 +10,13 @@ import MetalKit
 
 class Node {
     
-    var position: simd_float3 = simd_float3(repeating: 0)
-    var scale: simd_float3 = simd_float3(repeating: 1)
-    var rotation: simd_float3 = simd_float3(repeating: 0)
+    var position = Vector3f(repeating: 0)
+    var scale = Vector3f(repeating: 1)
+    var rotation = Vector3f(repeating: 0)
     var children: [Node] = []
     
-    var modelMatrix: matrix_float4x4 {
-        var modelMatrix = matrix_identity_float4x4
+    var modelMatrix: Matrix4x4f {
+        var modelMatrix: Matrix4x4f = .identity
         modelMatrix.translate(direction: position)
         modelMatrix.scale(axis: scale)
         modelMatrix.rotate(angle: rotation.x, axis: Math.xAxis)
@@ -25,7 +25,7 @@ class Node {
         return modelMatrix
     }
     
-    func update(deltaTime: Float) {
+    internal func update(deltaTime: Float) {
         
         for child in children {
             child.update(deltaTime: deltaTime)

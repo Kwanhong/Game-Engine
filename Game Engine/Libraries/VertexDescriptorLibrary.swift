@@ -52,7 +52,7 @@ struct BasicVertexDescriptor: VertexDescriptor {
         // Color
         vertexDescriptor.attributes[1].format = .float4
         vertexDescriptor.attributes[1].bufferIndex = 0
-        vertexDescriptor.attributes[1].offset = simd_float3.size()
+        vertexDescriptor.attributes[1].offset = Vector3f.size()
         
         vertexDescriptor.layouts[0].stride = Vertex.stride()
     }

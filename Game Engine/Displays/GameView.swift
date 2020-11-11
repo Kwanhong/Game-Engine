@@ -106,12 +106,12 @@ extension GameView {
     
     private func setMouseDeltaPosition(event: NSEvent) {
         
-        let overallLocation = simd_float2(
+        let overallLocation = Vector2f(
             Float(event.locationInWindow.x),
             Float(event.locationInWindow.y)
         )
         
-        let deltaPosition = simd_float2(
+        let deltaPosition = Vector2f(
             Float(event.deltaX),
             Float(event.deltaY)
         )

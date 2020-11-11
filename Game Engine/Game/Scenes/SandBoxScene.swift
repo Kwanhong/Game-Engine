@@ -10,13 +10,17 @@ import Foundation
 class SandBoxScene: Scene {
     
     var players: [Player] = []
+    var camera: Camera!
     
     override func start() {
         
-        let playerCount = 7
+        camera = DebugCamera()
+        self.addCamera(camera)
+        
+        let playerCount = 10
         
         for _ in 0..<playerCount {
-            let player = Player()
+            let player = Player(meshType: .triangleCustom)
             self.addChild(player)
             players.append(player)
         }
@@ -24,11 +28,11 @@ class SandBoxScene: Scene {
     
     override func update() {
         
-        let mousePos = Mouse.getMouseViewportPosition()
+        let mousePos = Mouse.getMouseCameraPosition(camera: camera)
         var posPerPlayer = mousePos
         
         let v1 = Math.getVector(mousePos, withMagnitudeOf: 2)
-        let v2 = Math.getVector(players.first?.position.vector2 ?? .zero, withMagnitudeOf: 1)
+        let v2 = Math.getVector(players.first?.position.asVector2 ?? .zero, withMagnitudeOf: 1)
         let theta = Math.getAngle(of: v1 - v2) - .pi * 0.5
         
         for player in players {

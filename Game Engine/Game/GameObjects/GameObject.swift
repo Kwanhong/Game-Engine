@@ -11,16 +11,21 @@ import MetalKit
 class GameObject: Node {
     
     var modelConstants = ModelConstants()
-    
     var mesh: Mesh!
     
-    init(meshType: MeshType) {
+    private var deltaTimeContainer: Float = .zero
+    var deltaTime: Float {
+        return deltaTimeContainer
+    }
+    
+    init(meshType: MeshType = .quadCustom) {
         super.init()
         mesh = MeshLibrary.mesh(meshType)
         start()
     }
     
-    override func update(deltaTime: Float) {
+    internal override func update(deltaTime: Float) {
+        deltaTimeContainer = deltaTime
         update()
         updateModelConstants()
         lateUpdate()
@@ -30,11 +35,11 @@ class GameObject: Node {
         modelConstants.modelMatrix = self.modelMatrix
     }
     
-    func start() { }
+    internal func start() { }
     
-    func update() { }
+    internal func update() { }
     
-    func lateUpdate() { }
+    internal func lateUpdate() { }
     
 }
 
@@ -42,7 +47,7 @@ extension GameObject: Renderable {
     
     func doRender(_ renderCommandEncoder: MTLRenderCommandEncoder?) {
         
-        renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride(), index: 1)
+        renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride(), index: 2)
         renderCommandEncoder?.setRenderPipelineState(RenderPipelineStateLibrary.getRenderPipelineState(.basic))
         renderCommandEncoder?.setVertexBuffer(mesh.vertexBuffer, offset: 0, index: 0)
         renderCommandEncoder?.drawPrimitives(

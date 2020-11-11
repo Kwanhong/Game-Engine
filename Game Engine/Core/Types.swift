@@ -22,13 +22,17 @@ extension Sizable {
 }
 
 struct Vertex: Sizable {
-    var position: simd_float3
-    var color: simd_float4
+    var position: Vector3f
+    var color: Vector4f
+}
+
+struct SceneConstants: Sizable {
+    var viewMatrix: Matrix4x4f = .identity
 }
 
 struct ModelConstants: Sizable {
-    var modelMatrix = matrix_identity_float4x4
+    var modelMatrix: Matrix4x4f = .identity
 }
 
-extension simd_float3: Sizable { }
+extension Vector3f: Sizable { }
 extension Float: Sizable { }

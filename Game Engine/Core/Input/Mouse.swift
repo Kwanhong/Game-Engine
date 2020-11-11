@@ -21,8 +21,8 @@ class Mouse {
     private static var mouseButtonCount: Int = 12
     private static var mouseButtons: [Bool] = .init(repeating: false, count: mouseButtonCount)
     
-    private static var overallMousePosition: simd_float2 = .zero
-    private static var mouseDeltaPosition: simd_float2 = .zero
+    private static var overallMousePosition: Vector2f = .zero
+    private static var mouseDeltaPosition: Vector2f = .zero
     
     private static var scrollWheelPosition: Float = .zero
     private static var lastWheelPosition: Float = .zero
@@ -36,11 +36,11 @@ class Mouse {
         return mouseButtons[Int(button.rawValue)]
     }
     
-    public static func setOverallMousePosition(position: simd_float2) {
+    public static func setOverallMousePosition(position: Vector2f) {
         overallMousePosition = position
     }
     
-    public static func setMousePositionChange(overallPosition: simd_float2, deltaPosition: simd_float2) {
+    public static func setMousePositionChange(overallPosition: Vector2f, deltaPosition: Vector2f) {
         overallMousePosition = overallPosition
         mouseDeltaPosition += deltaPosition
     }
@@ -50,7 +50,7 @@ class Mouse {
         scrollWheelChange += deltaY
     }
     
-    public static func getMouseWindowPosition()->simd_float2 {
+    public static func getMouseWindowPosition()->Vector2f {
         return overallMousePosition
     }
     
@@ -72,12 +72,16 @@ class Mouse {
         return result
     }
     
-    public static func getMouseViewportPosition()->simd_float2 {
+    public static func getMouseViewportPosition()->Vector2f {
         let position = overallMousePosition
         let screenSize = Renderer.screenSize
         let x = Math.map(position.x, start1: .zero, stop1: screenSize.x, start2: -1, stop2: 1)
         let y = Math.map(position.y, start1: .zero, stop1: screenSize.y, start2: -1, stop2: 1)
-        return simd_float2(x, y)
+        return Vector2f(x, y)
+    }
+    
+    public static func getMouseCameraPosition(camera: Camera)->Vector2f {
+        return getMouseViewportPosition() + camera.position.asVector2
     }
     
 }
