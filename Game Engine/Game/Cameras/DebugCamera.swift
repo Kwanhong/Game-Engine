@@ -12,6 +12,8 @@ class DebugCamera: Camera {
     
     var cameraType: CameraType = .debug
     
+    var settings: CameraSettings = .init()
+    
     var position: Vector3f = .zero
     
     func update(deltaTime: Float) {

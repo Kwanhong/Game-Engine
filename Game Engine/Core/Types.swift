@@ -7,6 +7,11 @@
 
 import simd
 
+typealias Vector2f = simd_float2
+typealias Vector3f = simd_float3
+typealias Vector4f = simd_float4
+typealias Matrix4x4f = matrix_float4x4
+
 protocol Sizable {
     static func size(_ count: Int)->Int
     static func stride(_ count: Int)->Int
@@ -28,6 +33,7 @@ struct Vertex: Sizable {
 
 struct SceneConstants: Sizable {
     var viewMatrix: Matrix4x4f = .identity
+    var projectionMatrix: Matrix4x4f = .identity
 }
 
 struct ModelConstants: Sizable {

@@ -20,6 +20,7 @@ struct RasterizerData {
 
 struct SceneConstants {
     float4x4 viewMatrix;
+    float4x4 projectionMatrix;
 };
 
 struct ModelConstants {
@@ -28,17 +29,20 @@ struct ModelConstants {
 
 vertex RasterizerData basic_vertex_shader(
     const VertexIn vertexIn [[stage_in]],
-    constant SceneConstants &sceneConstants [[buffer(1)]],
-    constant ModelConstants &modelConstants [[buffer(2)]]
+    constant SceneConstants &sceneConsts [[buffer(1)]],
+    constant ModelConstants &modelConsts [[buffer(2)]]
 ) {
     
     RasterizerData data;
     
     data.color = vertexIn.color;
     
-    data.position = sceneConstants.viewMatrix *
-                    modelConstants.modelMatrix *
-                    float4(vertexIn.position, 1);
+    data.position =
+        sceneConsts.projectionMatrix *
+        sceneConsts.viewMatrix *
+        modelConsts.modelMatrix *
+        float4(vertexIn.position, 1)
+    ;
     
     return data;
 }
@@ -46,5 +50,6 @@ vertex RasterizerData basic_vertex_shader(
 fragment half4 basic_fragment_shader(RasterizerData data[[stage_in]]) {
     
     float4 color = data.color;
+    
     return half4(color.r, color.g, color.b, color.a);
 }

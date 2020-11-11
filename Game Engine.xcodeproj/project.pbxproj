@@ -37,6 +37,7 @@
 		51DA4DC5255B973D0062D9C9 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA4DC4255B973D0062D9C9 /* Camera.swift */; };
 		51DA4DCA255B984F0062D9C9 /* DebugCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA4DC9255B984F0062D9C9 /* DebugCamera.swift */; };
 		51DA4DCF255BB0CA0062D9C9 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA4DCE255BB0CA0062D9C9 /* CameraManager.swift */; };
+		51DA4DEA255BE2240062D9C9 /* DepthStencilStateLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA4DE9255BE2240062D9C9 /* DepthStencilStateLibrary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		51DA4DC4255B973D0062D9C9 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		51DA4DC9255B984F0062D9C9 /* DebugCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugCamera.swift; sourceTree = "<group>"; };
 		51DA4DCE255BB0CA0062D9C9 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		51DA4DE9255BE2240062D9C9 /* DepthStencilStateLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthStencilStateLibrary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,12 +153,12 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		5119715C2543F0AE002A8059 /* Math */ = {
+		5119715C2543F0AE002A8059 /* Maths */ = {
 			isa = PBXGroup;
 			children = (
 				5119715D2543F0B7002A8059 /* Math.swift */,
 			);
-			path = Math;
+			path = Maths;
 			sourceTree = "<group>";
 		};
 		5119716225454F7D002A8059 /* Scenes */ = {
@@ -202,7 +204,7 @@
 			children = (
 				51D3EB6C2521E8A400D03A9C /* Displays */,
 				51197170254551F5002A8059 /* Managers */,
-				5119715C2543F0AE002A8059 /* Math */,
+				5119715C2543F0AE002A8059 /* Maths */,
 				51D3EB6A2521E88900D03A9C /* Core */,
 				51D3EB6B2521E89000D03A9C /* Libraries */,
 				511971332543E022002A8059 /* Game */,
@@ -260,6 +262,7 @@
 				51A18FA22524642F000A3B54 /* RenderPipelineDescriptorLibrary.swift */,
 				51495D6A25246717003AA018 /* RenderPipelineStateLibrary.swift */,
 				511971442543E48B002A8059 /* MeshLibrary.swift */,
+				51DA4DE9255BE2240062D9C9 /* DepthStencilStateLibrary.swift */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				5119716425454F8F002A8059 /* Scene.swift in Sources */,
 				51197169254550B3002A8059 /* SandBoxScene.swift in Sources */,
 				51495D6B25246717003AA018 /* RenderPipelineStateLibrary.swift in Sources */,
+				51DA4DEA255BE2240062D9C9 /* DepthStencilStateLibrary.swift in Sources */,
 				51DA4DCF255BB0CA0062D9C9 /* CameraManager.swift in Sources */,
 				51D3EB142521CB0800D03A9C /* AppDelegate.swift in Sources */,
 				5119715E2543F0B7002A8059 /* Math.swift in Sources */,
@@ -622,6 +626,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Game Engine/Game_Engine.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Game Engine/XCode Files/Info.plist";
@@ -641,6 +646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Game Engine/Game_Engine.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Game Engine/XCode Files/Info.plist";

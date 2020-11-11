@@ -8,11 +8,6 @@
 import Foundation
 import MetalKit
 
-typealias Vector2f = simd_float2
-typealias Vector3f = simd_float3
-typealias Vector4f = simd_float4
-typealias Matrix4x4f = matrix_float4x4
-
 class Math {
     
     static var xAxis: Vector3f {
@@ -32,11 +27,11 @@ class Math {
 // Overall Float Methods
 extension Math {
     
-    static func getDegree(of radian: Float)->Float {
+    static func getDegrees(of radian: Float)->Float {
         return radian * 180 / Float.pi
     }
     
-    static func getRadian(of degree: Float)->Float {
+    static func getRadians(of degree: Float)->Float {
         return degree * Float.pi / 180
     }
     
@@ -221,6 +216,19 @@ extension Math {
     
 }
 
+// Float
+extension Float {
+    
+    var toDegrees: Float {
+        return Math.getDegrees(of: self)
+    }
+    
+    var toRadians: Float {
+        return Math.getRadians(of: self)
+    }
+    
+}
+
 // Vector2
 extension Vector2f {
     
@@ -361,6 +369,30 @@ extension Matrix4x4f {
         )
         
         self.multiply(with: result)
+        
+    }
+    
+    static func perspective(degreesFov: Float, aspectRatio: Float, near: Float, far: Float)->Matrix4x4f {
+        
+        let fov = degreesFov.toRadians
+        
+        let t: Float = tan(fov / 2)
+        
+        let x: Float = 1 / (aspectRatio * t)
+        let y: Float = 1 / t
+        let z: Float = (far + near) / (near - far)
+        let w: Float = (2 * far * near) / (near - far)
+        
+        var result: Matrix4x4f = .identity
+        
+        result.columns = (
+            Vector4f(x, 0, 0, 0),
+            Vector4f(0, y, 0, 0),
+            Vector4f(0, 0, z,-1),
+            Vector4f(0, 0, w, 0)
+        )
+        
+        return result
         
     }
 }

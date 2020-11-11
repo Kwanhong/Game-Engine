@@ -21,6 +21,7 @@ class Preferences {
     
     static var clearColor = ClearColor.darkGray
     static var mainPixelFormat = MTLPixelFormat.bgra8Unorm
+    static var mainDepthPixelFormat = MTLPixelFormat.depth32Float
     static var startingSceneType: SceneType = .sandBox
     
 }

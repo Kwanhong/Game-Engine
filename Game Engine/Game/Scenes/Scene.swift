@@ -33,6 +33,7 @@ class Scene: Node {
     func updateSceneConstants() {
         if let camera = cameraManager.currentCamera {
             sceneConstants.viewMatrix = camera.viewMatrix
+            sceneConstants.projectionMatrix = camera.projectionMatrix
         }
     }
     

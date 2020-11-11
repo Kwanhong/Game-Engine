@@ -11,6 +11,7 @@ import MetalKit
 enum MeshType {
     case triangleCustom
     case quadCustom
+    case cubeCustom
 }
 
 class MeshLibrary {
@@ -24,6 +25,7 @@ class MeshLibrary {
     private static func createDefaultMeshes() {
         meshes.updateValue(TriangleCustomMesh(), forKey: .triangleCustom)
         meshes.updateValue(QuadCustomMesh(), forKey: .quadCustom)
+        meshes.updateValue(CubeCustomMesh(), forKey: .cubeCustom)
     }
     
     public static func mesh(_ meshType: MeshType)->Mesh {
@@ -61,9 +63,9 @@ class CustomMesh: Mesh {
     func createVertices() {
         
         vertices = [
-            .init(position: .init( 0,  1, 0), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1, -1, 0), color: .init(0, 1, 0, 1)),
-            .init(position: .init( 1, -1, 0), color: .init(0, 0, 1, 1))
+            .init(position: .init( 0, 1, 0), color: .init(1, 0, 0, 1)),
+            .init(position: .init(-1,-1, 0), color: .init(0, 1, 0, 1)),
+            .init(position: .init( 1,-1, 0), color: .init(0, 0, 1, 1))
         ]
         
     }
@@ -110,3 +112,56 @@ class QuadCustomMesh: CustomMesh {
     }
     
 }
+
+class CubeCustomMesh: CustomMesh {
+    
+    override func createVertices() {
+        
+        vertices = [
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
+            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
+            
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
+            
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
+            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
+            
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
+            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
+            
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
+            
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
+        ]
+        
+    }
+    
+}
+
