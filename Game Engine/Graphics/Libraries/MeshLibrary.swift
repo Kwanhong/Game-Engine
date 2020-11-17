@@ -8,12 +8,6 @@
 import Foundation
 import MetalKit
 
-enum MeshType {
-    case triangleCustom
-    case quadCustom
-    case cubeCustom
-}
-
 class MeshLibrary {
     
     private static var meshes: [MeshType:Mesh] = [:]
@@ -28,7 +22,7 @@ class MeshLibrary {
         meshes.updateValue(CubeCustomMesh(), forKey: .cubeCustom)
     }
     
-    public static func mesh(_ meshType: MeshType)->Mesh {
+    public static func getMesh(_ meshType: MeshType)->Mesh {
         if let mesh = meshes[meshType] {
             return mesh
         } else {
@@ -42,6 +36,8 @@ protocol Mesh {
     
     var vertexCount: Int! { get }
     var vertexBuffer: MTLBuffer! { get }
+    var instanceCount: Int { get set }
+    func drawPrimitives(_ renderCommandEncoder: MTLRenderCommandEncoder?)
     
 }
 
@@ -49,6 +45,7 @@ class CustomMesh: Mesh {
     
     var vertices: [Vertex]!
     var vertexBuffer: MTLBuffer!
+    var instanceCount: Int = 1
     var vertexCount: Int! {
         return vertices.count
     }
@@ -76,6 +73,22 @@ class CustomMesh: Mesh {
             bytes: vertices,
             length: Vertex.stride(vertices.count),
             options: []
+        )
+        
+    }
+    
+    func drawPrimitives(_ renderCommandEncoder: MTLRenderCommandEncoder?) {
+        
+        renderCommandEncoder?.setVertexBuffer(
+            vertexBuffer,
+            offset: 0, index: 0
+        )
+        
+        renderCommandEncoder?.drawPrimitives(
+            type: .triangle,
+            vertexStart: .zero,
+            vertexCount: vertexCount,
+            instanceCount: instanceCount
         )
         
     }

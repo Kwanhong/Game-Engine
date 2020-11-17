@@ -8,10 +8,6 @@
 import Foundation
 import MetalKit
 
-enum DepthStencilStateType {
-    case less
-}
-
 class DepthStencilStateLibrary {
     
     private static var depthStencilStates: [DepthStencilStateType: DepthStencilState] = [:]

@@ -7,10 +7,6 @@
 
 import MetalKit
 
-enum RenderPipelineDescriptorType {
-    case basic
-}
-
 class RenderPipelineDescriptorLibrary {
     
     private static var renderPipelineDescriptors: [RenderPipelineDescriptorType: RenderPipelineDescriptor] = [:]
@@ -21,6 +17,7 @@ class RenderPipelineDescriptorLibrary {
     
     private static func createDefaultRenderPipelineDescriptors() {
         renderPipelineDescriptors.updateValue(BasicRenderPipelineDescriptor(), forKey: .basic)
+        renderPipelineDescriptors.updateValue(InstancedRenderPipelineDescriptor(), forKey: .instanced)
     }
     
     static func getRenderPipelineDescriptor(_ type: RenderPipelineDescriptorType)->MTLRenderPipelineDescriptor {
@@ -45,6 +42,25 @@ struct BasicRenderPipelineDescriptor: RenderPipelineDescriptor {
         renderPipelineDescriptor.colorAttachments[0].pixelFormat = Preferences.mainPixelFormat
         renderPipelineDescriptor.depthAttachmentPixelFormat = Preferences.mainDepthPixelFormat
         renderPipelineDescriptor.vertexFunction = ShaderLibrary.getVertexFunction(.basic)
+        renderPipelineDescriptor.fragmentFunction = ShaderLibrary.getFragmentFunction(.basic)
+        renderPipelineDescriptor.vertexDescriptor = VertexDescriptorLibrary.getVertexDescriptor(.basic)
+        
+    }
+    
+}
+
+struct InstancedRenderPipelineDescriptor: RenderPipelineDescriptor {
+    
+    var name: String = "InstancedRenderPipelineDescriptor"
+    var renderPipelineDescriptor: MTLRenderPipelineDescriptor
+    
+    init() {
+        
+        renderPipelineDescriptor = MTLRenderPipelineDescriptor()
+        
+        renderPipelineDescriptor.colorAttachments[0].pixelFormat = Preferences.mainPixelFormat
+        renderPipelineDescriptor.depthAttachmentPixelFormat = Preferences.mainDepthPixelFormat
+        renderPipelineDescriptor.vertexFunction = ShaderLibrary.getVertexFunction(.instanced)
         renderPipelineDescriptor.fragmentFunction = ShaderLibrary.getFragmentFunction(.basic)
         renderPipelineDescriptor.vertexDescriptor = VertexDescriptorLibrary.getVertexDescriptor(.basic)
         

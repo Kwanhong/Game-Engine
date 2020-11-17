@@ -8,14 +8,6 @@
 import Foundation
 import MetalKit
 
-enum mouseButtonCode: Int {
-    
-    case left = 0
-    case right = 1
-    case center = 2
-    
-}
-
 class Mouse {
     
     private static var mouseButtonCount: Int = 12
@@ -72,6 +64,14 @@ class Mouse {
         return result
     }
     
+    public static func getMouseViewportDeltaPosition()->Vector2f {
+        let position = mouseDeltaPosition
+        let screenSize = Renderer.screenSize
+        let x = Math.map(position.x, start1: .zero, stop1: screenSize.x, start2: -1, stop2: 1)
+        let y = Math.map(position.y, start1: .zero, stop1: screenSize.y, start2: -1, stop2: 1)
+        return Vector2f(x, y)
+    }
+    
     public static func getMouseViewportPosition()->Vector2f {
         let position = overallMousePosition
         let screenSize = Renderer.screenSize
@@ -81,7 +81,11 @@ class Mouse {
     }
     
     public static func getMouseCameraPosition(camera: Camera)->Vector2f {
-        return getMouseViewportPosition() + camera.position.asVector2f
+        return camera.position.asVector2f - getMouseViewportPosition()
+    }
+    
+    public static func getMouseCameraDeltaPosition(camera: Camera)->Vector2f {
+        return camera.position.asVector2f - getMouseViewportDeltaPosition()
     }
     
 }

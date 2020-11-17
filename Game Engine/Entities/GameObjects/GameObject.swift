@@ -10,8 +10,9 @@ import MetalKit
 
 class GameObject: Node {
     
-    var modelConstants = ModelConstants()
-    var mesh: Mesh!
+    private var modelConstants = ModelConstants()
+    private var material = Material()
+    private var mesh: Mesh!
     
     private var deltaTimeContainer: Float = .zero
     var deltaTime: Float {
@@ -20,15 +21,16 @@ class GameObject: Node {
     
     init(meshType: MeshType = .quadCustom) {
         super.init()
-        mesh = MeshLibrary.mesh(meshType)
-        start()
+        self.mesh = MeshLibrary.getMesh(meshType)
+        self.start()
     }
     
     internal override func update(deltaTime: Float) {
-        deltaTimeContainer = deltaTime
-        update()
-        updateModelConstants()
-        lateUpdate()
+        self.deltaTimeContainer = deltaTime
+        self.update()
+        self.updateModelConstants()
+        super.update(deltaTime: deltaTime)
+        self.lateUpdate()
     }
     
     private func updateModelConstants() {
@@ -48,15 +50,23 @@ extension GameObject: Renderable {
     func doRender(_ renderCommandEncoder: MTLRenderCommandEncoder?) {
         
         renderCommandEncoder?.setRenderPipelineState(RenderPipelineStateLibrary.getRenderPipelineState(.basic))
-        renderCommandEncoder?.setDepthStencilState(DepthStencilStateLibrary.getDepthStencilState(.less))
-        renderCommandEncoder?.setVertexBuffer(mesh.vertexBuffer, offset: 0, index: 0)
-        renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride(), index: 2)
-        renderCommandEncoder?.drawPrimitives(
-            type: .triangle,
-            vertexStart: 0,
-            vertexCount: mesh.vertexCount
-        )
         
+        renderCommandEncoder?.setDepthStencilState(DepthStencilStateLibrary.getDepthStencilState(.less))
+        
+        renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
+        
+        renderCommandEncoder?.setFragmentBytes(&material, length: Material.stride, index: 1)
+        
+        mesh.drawPrimitives(renderCommandEncoder)
+    }
+    
+}
+
+extension GameObject {
+    
+    public func setColor(_ color: Vector4f) {
+        self.material.color = color
+        self.material.useMaterialColor = true
     }
     
 }

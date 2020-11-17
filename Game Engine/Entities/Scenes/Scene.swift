@@ -24,10 +24,7 @@ class Scene: Node {
     }
     
     func addCamera(_ camera: Camera, setItNow: Bool = true) {
-        cameraManager.registerCamera(camera)
-        if setItNow {
-            cameraManager.setCamera(type: camera.cameraType)
-        }
+        cameraManager.registerCamera(camera, setItNow: setItNow)
     }
     
     func updateSceneConstants() {
@@ -55,7 +52,7 @@ class Scene: Node {
         
         renderCommandEncoder?.setVertexBytes(
             &sceneConstants,
-            length: SceneConstants.stride(),
+            length: SceneConstants.stride,
             index: 1
         )
         

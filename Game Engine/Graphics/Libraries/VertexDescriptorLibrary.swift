@@ -7,10 +7,6 @@
 
 import MetalKit
 
-enum VertexDescriptorType {
-    case basic
-}
-
 class VertexDescriptorLibrary {
     
     private static var vertexDescriptors: [VertexDescriptorType: VertexDescriptor] = [:]
@@ -52,9 +48,9 @@ struct BasicVertexDescriptor: VertexDescriptor {
         // Color
         vertexDescriptor.attributes[1].format = .float4
         vertexDescriptor.attributes[1].bufferIndex = 0
-        vertexDescriptor.attributes[1].offset = Vector3f.size()
+        vertexDescriptor.attributes[1].offset = Vector3f.size
         
-        vertexDescriptor.layouts[0].stride = Vertex.stride()
+        vertexDescriptor.layouts[0].stride = Vertex.stride
     }
     
 }

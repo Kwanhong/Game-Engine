@@ -7,10 +7,6 @@
 
 import MetalKit
 
-enum RenderPipelineStateType {
-    case basic
-}
-
 class RenderPipelineStateLibrary {
     
     private static var renderPipelineStates: [RenderPipelineStateType: RenderPipelineState] = [:]
@@ -21,6 +17,7 @@ class RenderPipelineStateLibrary {
     
     private static func createDefaultRenderPipelineStates() {
         renderPipelineStates.updateValue(BasicRenderPipelineState(), forKey: .basic)
+        renderPipelineStates.updateValue(InstancedRenderPipelineState(), forKey: .instanced)
     }
     
     static func getRenderPipelineState(_ type: RenderPipelineStateType)->MTLRenderPipelineState {
@@ -44,6 +41,26 @@ struct BasicRenderPipelineState: RenderPipelineState {
         do {
             renderPipelineState = try Engine.device.makeRenderPipelineState(
                 descriptor: RenderPipelineDescriptorLibrary.getRenderPipelineDescriptor(.basic)
+            )
+        } catch {
+            print("Error, Make Render pipelineState: \(name), \(error)")
+        }
+        
+        self.renderPipelineState = renderPipelineState
+    }
+}
+
+struct InstancedRenderPipelineState: RenderPipelineState {
+    var name: String = "InstancedRenderPipelineState"
+    var renderPipelineState: MTLRenderPipelineState
+    
+    init() {
+        
+        var renderPipelineState: MTLRenderPipelineState!
+        
+        do {
+            renderPipelineState = try Engine.device.makeRenderPipelineState(
+                descriptor: RenderPipelineDescriptorLibrary.getRenderPipelineDescriptor(.instanced)
             )
         } catch {
             print("Error, Make Render pipelineState: \(name), \(error)")

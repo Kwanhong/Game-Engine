@@ -14,21 +14,24 @@ enum SceneType {
 
 class SceneManager {
     
+    private static var currentSceneContainer: Scene!
     public static var currentScene: Scene {
         return currentSceneContainer
     }
     
-    private static var currentSceneContainer: Scene!
-    
     public static func initialize(_ sceneType: SceneType) {
+        
         setScene(sceneType)
+        
     }
     
     public static func setScene(_ sceneType: SceneType) {
+        
         switch sceneType {
             case .sandBox:
                 currentSceneContainer = SandBoxScene()
         }
+        
     }
     
     public static func tickScene(renderCommandEncoder: MTLRenderCommandEncoder?, deltaTime: Float) {

@@ -14,20 +14,30 @@ class CameraManager {
     
     public var currentCamera: Camera!
     
-    public func registerCamera(_ camera: Camera) {
+    public func registerCamera(_ camera: Camera, setItNow: Bool = true) {
+        
         self.cameras.updateValue(camera, forKey: camera.cameraType)
+        
+        if setItNow {
+            setCamera(type: camera.cameraType)
+        }
+        
     }
     
     public func setCamera(type: CameraType) {
+        
         if let camera = cameras[type] {
             self.currentCamera = camera
         }
+        
     }
     
     internal func update(deltaTime: Float) {
+        
         for camera in cameras.values {
             camera.update(deltaTime: deltaTime)
         }
+        
     }
     
 }
