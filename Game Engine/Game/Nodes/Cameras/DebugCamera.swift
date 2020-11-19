@@ -44,7 +44,6 @@ class DebugCamera: Camera {
             wasWindowFocused = false
             return
         }
-        
         if !wasWindowFocused {
             NSCursor.hide()
             setMousePosToCenter()

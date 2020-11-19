@@ -35,13 +35,14 @@ protocol Camera {
 extension Camera {
     
     var viewMatrix: Matrix4x4f {
+        
         var viewMatrix: Matrix4x4f = .identity
-        viewMatrix.rotate(angle: rotation.x, axis: Math.xAxis)
-        viewMatrix.rotate(angle: rotation.y, axis: Math.yAxis)
-        viewMatrix.rotate(angle: rotation.z, axis: Math.zAxis)
+        
+        viewMatrix.rotate(rotation: rotation)
         viewMatrix.translate(direction: -position)
         
         return viewMatrix
+        
     }
     
     var projectionMatrix: Matrix4x4f {

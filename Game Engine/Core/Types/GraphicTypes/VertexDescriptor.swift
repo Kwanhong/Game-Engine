@@ -7,15 +7,19 @@
 
 import MetalKit
 
+struct VertexDescriptorAttributesConfig {
+    
+    var format: MTLVertexFormat
+    var bufferIndex: Int
+    var offset: Int
+    
+}
+
 struct VertexDescriptorConfig {
     
-    var positionFormat: MTLVertexFormat
-    var positionBufferIndex: Int
-    var positionOffset: Int
-    
-    var colorFormat: MTLVertexFormat
-    var colorBufferIndex: Int
-    var colorOffset: Int
+    var position: VertexDescriptorAttributesConfig
+    var color: VertexDescriptorAttributesConfig
+    var uvMap: VertexDescriptorAttributesConfig
     
 }
 
@@ -30,14 +34,19 @@ class VertexDescriptor: NSObject {
         self.descriptor = MTLVertexDescriptor()
         
         // Position
-        descriptor.attributes[0].format = config.positionFormat
-        descriptor.attributes[0].bufferIndex = config.positionBufferIndex
-        descriptor.attributes[0].offset = config.positionOffset
+        descriptor.attributes[0].format = config.position.format
+        descriptor.attributes[0].bufferIndex = config.position.bufferIndex
+        descriptor.attributes[0].offset = config.position.offset
         
         // Color
-        descriptor.attributes[1].format = config.colorFormat
-        descriptor.attributes[1].bufferIndex = config.colorBufferIndex
-        descriptor.attributes[1].offset = config.colorOffset
+        descriptor.attributes[1].format = config.color.format
+        descriptor.attributes[1].bufferIndex = config.color.bufferIndex
+        descriptor.attributes[1].offset = config.color.offset
+        
+        // UVMap
+        descriptor.attributes[2].format = config.uvMap.format
+        descriptor.attributes[2].bufferIndex = config.uvMap.bufferIndex
+        descriptor.attributes[2].offset = config.uvMap.offset
         
         descriptor.layouts[0].stride = Vertex.stride
         

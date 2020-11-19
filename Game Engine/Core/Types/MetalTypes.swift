@@ -21,21 +21,30 @@ extension Bool: Sizable { }
 
 extension Float: Sizable { }
 
+extension Vector2f: Sizable { }
+
 extension Vector3f: Sizable { }
 
+extension Vector4f: Sizable { }
+
 extension Sizable {
+    
     static func size(_ count: Int = 1)->Int {
         return MemoryLayout<Self>.size * count
     }
+    
     static func stride(_ count: Int = 1)->Int {
         return MemoryLayout<Self>.stride * count
     }
+    
     static var size: Int {
         return size()
     }
+    
     static var stride: Int {
         return stride()
     }
+    
 }
 
 // Shader Constants
@@ -43,6 +52,7 @@ extension Sizable {
 struct Vertex: Sizable {
     var position: Vector3f
     var color: Vector4f
+    var texcoord: Vector2f
 }
 
 struct SceneConstants: Sizable {

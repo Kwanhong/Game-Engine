@@ -17,13 +17,18 @@ class VertexDescriptorLibrary: GenericLibrary<VertexDescriptorType, VertexDescri
     
     override internal func initialize() {
         
+        let positionAttributes = VertexDescriptorAttributesConfig(
+            format: .float3, bufferIndex: .zero, offset: .zero
+        )
+        let colorAttributes = VertexDescriptorAttributesConfig(
+            format: .float4, bufferIndex: .zero, offset: Vector3f.size
+        )
+        let uvMapAttributes = VertexDescriptorAttributesConfig(
+            format: .float2, bufferIndex: .zero, offset: Vector3f.size + Vector4f.size
+        )
+        
         let basicConfig = VertexDescriptorConfig(
-            positionFormat: .float3,
-            positionBufferIndex: .zero,
-            positionOffset: .zero,
-            colorFormat: .float4,
-            colorBufferIndex: .zero,
-            colorOffset: Vector3f.size
+            position: positionAttributes, color: colorAttributes, uvMap: uvMapAttributes
         )
         
         let basicDescriptor = VertexDescriptor(
@@ -33,6 +38,7 @@ class VertexDescriptorLibrary: GenericLibrary<VertexDescriptorType, VertexDescri
         
         library.updateValue(basicDescriptor, forKey: .basic)
         descriptors.updateValue(basicDescriptor.descriptor, forKey: .basic)
+        
     }
     
 }

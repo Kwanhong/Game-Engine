@@ -89,14 +89,14 @@ extension Vector3f {
         
         var result = self
         
+        let yzVec = Vector2f(result.y, result.z).rotated(to: rotation.x)
+        result = Vector3f(result.x, yzVec.x, yzVec.y)
+        
         let xzVec = Vector2f(result.x, result.z).rotated(to: rotation.y)
         result = Vector3f(xzVec.x, result.y, xzVec.y)
         
         let xyVec = Vector2f(result.x, result.y).rotated(to: rotation.z)
         result = Vector3f(xyVec.x, xyVec.y, result.z)
-        
-        let yzVec = Vector2f(result.y, result.z).rotated(to: rotation.x)
-        result = Vector3f(result.x, yzVec.x, yzVec.y)
         
         return result
         

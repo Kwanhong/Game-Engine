@@ -75,6 +75,14 @@ extension Matrix4x4f {
         
     }
     
+    mutating func rotate(rotation: Vector3f) {
+        
+        self.rotate(angle: rotation.x, axis: Math.xAxis)
+        self.rotate(angle: rotation.y, axis: Math.yAxis)
+        self.rotate(angle: rotation.z, axis: Math.zAxis)
+        
+    }
+    
     mutating func rotate(angle: Float, axis: Vector3f) {
         
         var result: Matrix4x4f = .identity
@@ -168,19 +176,6 @@ extension Matrix4x4f {
         let y = -asin (self[0, 2])
         let x = atan2(self[1, 2] / cos(y), self[2, 2] / cos(y))
         let z = atan2(self[0, 1] / cos(y), self[0, 0] / cos(y))
-        
-        return Vector3f(x, y, z)
-        
-    }
-    
-    static func getLookatRotation(from origin: Vector3f, to target: Vector3f, up: Vector3f)->Vector3f {
-        
-        var result: Matrix4x4f = .identity
-        result.lookat(from: origin, to: target, up: up)
-        
-        let x = atan(result.columns.1.z / result.columns.2.z)
-        let y = asin(-result.columns.0.z)
-        let z = atan(result.columns.0.y / result.columns.0.x)
         
         return Vector3f(x, y, z)
         

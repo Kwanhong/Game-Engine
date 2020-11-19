@@ -27,9 +27,9 @@ class Mesh: NSObject {
     func createVertices() {
         
         vertices = [
-            .init(position: .init( 0, 1, 0), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1,-1, 0), color: .init(0, 1, 0, 1)),
-            .init(position: .init( 1,-1, 0), color: .init(0, 0, 1, 1))
+            .init(position: .init( 0, 1, 0), color: .init(1, 0, 0, 1), texcoord: .init(0.5, 0.0)),
+            .init(position: .init(-1,-1, 0), color: .init(0, 1, 0, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1, 0), color: .init(0, 0, 1, 1), texcoord: .init(1.0, 1.0))
         ]
         
     }
@@ -67,9 +67,9 @@ class TriangleMesh: Mesh {
     override func createVertices() {
         
         vertices = [
-            .init(position: .init( 0, 1, 0), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1,-1, 0), color: .init(0, 1, 0, 1)),
-            .init(position: .init( 1,-1, 0), color: .init(0, 0, 1, 1))
+            .init(position: .init( 0, 1, 0), color: .init(1, 0, 0, 1), texcoord: .init(0.5, 0.0)),
+            .init(position: .init(-1,-1, 0), color: .init(0, 1, 0, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1, 0), color: .init(0, 0, 1, 1), texcoord: .init(1.0, 1.0))
         ]
         
     }
@@ -81,12 +81,12 @@ class QuadMesh: Mesh {
     override func createVertices() {
         
         vertices = [
-            .init(position: .init( 1, 1, 0), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1, 1, 0), color: .init(0, 1, 0, 1)),
-            .init(position: .init(-1,-1, 0), color: .init(0, 0, 1, 1)),
-            .init(position: .init( 1, 1, 0), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1,-1, 0), color: .init(0, 0, 1, 1)),
-            .init(position: .init( 1,-1, 0), color: .init(1, 0, 1, 1))
+            .init(position: .init( 1, 1, 0), color: .init(1, 0, 0, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init(-1, 1, 0), color: .init(0, 1, 0, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init(-1,-1, 0), color: .init(0, 0, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1, 1, 0), color: .init(1, 0, 0, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init(-1,-1, 0), color: .init(0, 0, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1, 0), color: .init(1, 0, 1, 1), texcoord: .init(1.0, 1.0))
         ]
         
     }
@@ -98,47 +98,47 @@ class CubeMesh: Mesh {
     override func createVertices() {
         
         vertices = [
-            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1)),
-            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
-            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
-            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1), texcoord: .init(1.0, 1.0)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1), texcoord: .init(1.0, 1.0)),
             
-            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
-            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
-            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
-            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
-            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
-            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
-            
-            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
-            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
-            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
-            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
-            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1)),
-            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1)),
-            
-            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
-            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1)),
-            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
-            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
-            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
-            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
-            
-            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1)),
-            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
-            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
-            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
-            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1)),
-            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
-            
-            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
-            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1)),
-            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
-            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1)),
-            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1)),
-            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1), texcoord: .init(1.0, 1.0)),
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1), texcoord: .init(1.0, 0.0)),
+        
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1), texcoord: .init(1.0, 1.0)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init(-1,-1,-1), color: .init(1, 0, 0, 1), texcoord: .init(1.0, 1.0)),
+        
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init(-1,-1, 1), color: .init(1, 1, 0, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1), texcoord: .init(1.0, 1.0)),
+        
+            .init(position: .init( 1,-1,-1), color: .init(1,1,0.5, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init( 1, 1,-1), color: .init(0, 1, 1, 1), texcoord: .init(1.0, 1.0)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1), texcoord: .init(0.0, 1.0)),
+        
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1), texcoord: .init(1.0, 0.0)),
+            .init(position: .init(-1, 1,-1), color: .init(0, 0, 1, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1), texcoord: .init(0.0, 0.0)),
+            .init(position: .init( 1, 1, 1), color: .init(1, 0, 1, 1), texcoord: .init(1.0, 1.0)),
+            .init(position: .init(-1, 1, 1), color: .init(0, 1, 0, 1), texcoord: .init(0.0, 1.0)),
+            .init(position: .init( 1,-1, 1), color: .init(0,0.5,1, 1), texcoord: .init(1.0, 0.0)),
         ]
         
     }
