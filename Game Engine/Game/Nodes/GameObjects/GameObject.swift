@@ -19,9 +19,9 @@ class GameObject: Node {
         return deltaTimeContainer
     }
     
-    init(meshType: MeshType = .quadCustom) {
-        super.init()
-        self.mesh = MeshLibrary.getMesh(meshType)
+    init(name: String = "Game Object", meshType: MeshType = .quadCustom) {
+        super.init(name: name)
+        self.mesh = Entities.Lib.mesh[meshType]
         self.start()
     }
     
@@ -49,9 +49,9 @@ extension GameObject: Renderable {
     
     func doRender(_ renderCommandEncoder: MTLRenderCommandEncoder?) {
         
-        renderCommandEncoder?.setRenderPipelineState(RenderPipelineStateLibrary.getRenderPipelineState(.basic))
+        renderCommandEncoder?.setRenderPipelineState(Graphics.State.renderPipeline[.basic]!)
         
-        renderCommandEncoder?.setDepthStencilState(DepthStencilStateLibrary.getDepthStencilState(.less))
+        renderCommandEncoder?.setDepthStencilState(Graphics.State.depthStencil[.less])
         
         renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
         

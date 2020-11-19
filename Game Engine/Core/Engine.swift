@@ -11,17 +11,16 @@ class Engine {
     
     public static var device: MTLDevice!
     public static var commandQueue: MTLCommandQueue!
+    public static var shaderLibrary: MTLLibrary!
     
     public static func Ignite(device: MTLDevice) {
+        
         self.device = device
         self.commandQueue = device.makeCommandQueue()
+        self.shaderLibrary = device.makeDefaultLibrary()
         
-        ShaderLibrary.initialize()
-        VertexDescriptorLibrary.initialize()
-        DepthStencilStateLibrary.initialize()
-        RenderPipelineDescriptorLibrary.initialize()
-        RenderPipelineStateLibrary.initialize()
-        MeshLibrary.initialize()
+        Graphics.initialize()
+        Entities.initialize()
         SceneManager.initialize(Preferences.startingSceneType)
     }
     

@@ -10,11 +10,11 @@ import Foundation
 class CubeCollection: InstancedGameObject {
     
     init(instanceCount count: Int) {
-        super.init(meshType: .cubeCustom, instanceCount: count)
+        super.init(name: "Cube Collection", meshType: .cubeCustom, instanceCount: count)
     }
     
     override func start() {
-        self.scale = .init(repeating: 0.02)
+        self.scale = .init(repeating: 0.005)
     }
     
 }

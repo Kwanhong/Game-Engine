@@ -21,9 +21,9 @@ class InstancedGameObject: Node {
         return deltaTimeContainer
     }
     
-    init(meshType: MeshType, instanceCount count: Int) {
-        super.init()
-        self.mesh = MeshLibrary.getMesh(meshType)
+    init(name: String = "Instanced Game Object", meshType: MeshType, instanceCount count: Int) {
+        super.init(name: name)
+        self.mesh = Entities.Lib.mesh[meshType]
         self.mesh.instanceCount = count
         self.generateInstances(count: count)
         self.createBuffers(count: count)
@@ -75,9 +75,9 @@ extension InstancedGameObject: Renderable {
     
     func doRender(_ renderCommandEncoder: MTLRenderCommandEncoder?) {
         
-        renderCommandEncoder?.setRenderPipelineState(RenderPipelineStateLibrary.getRenderPipelineState(.instanced))
+        renderCommandEncoder?.setRenderPipelineState(Graphics.State.renderPipeline[.instanced]!)
         
-        renderCommandEncoder?.setDepthStencilState(DepthStencilStateLibrary.getDepthStencilState(.less))
+        renderCommandEncoder?.setDepthStencilState(Graphics.State.depthStencil[.less])
         
         renderCommandEncoder?.setVertexBuffer(modelConstantsBuffer, offset: 0, index: 2)
         

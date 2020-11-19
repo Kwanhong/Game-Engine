@@ -1,5 +1,5 @@
 //
-//  Types.swift
+//  MetalTypes.swift
 //  Game Engine
 //
 //  Created by 박관홍 on 2020/09/28.
@@ -58,49 +58,3 @@ struct Material: Sizable {
     var color: Vector4f = .init(0.8, 0.8, 0.8, 1)
     var useMaterialColor: Bool = false
 }
-
-// Shader Types
-
-enum VertexShaderType {
-    case basic
-    case instanced
-}
-
-enum FragmentShaderType {
-    case basic
-}
-
-// Vertex Descriptor Types
-
-enum VertexDescriptorType {
-    case basic
-}
-
-// Render Pipeline Descriptor Types
-
-enum RenderPipelineDescriptorType {
-    case basic
-    case instanced
-}
-
-// Render Pipeline State Types
-
-enum RenderPipelineStateType {
-    case basic
-    case instanced
-}
-
-// Mesh Types
-
-enum MeshType {
-    case triangleCustom
-    case quadCustom
-    case cubeCustom
-}
-
-// Depth Stencil State Types
-
-enum DepthStencilStateType {
-    case less
-}
-

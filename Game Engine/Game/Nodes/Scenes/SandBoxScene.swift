@@ -13,11 +13,13 @@ class SandBoxScene: Scene {
     var camera: Camera = DebugCamera()
     var time: Float = .zero
     
-    var cubeCollection: CubeCollection = .init(instanceCount: 234)
+    var cubeCollection: CubeCollection!
     
     override func start() {
         
         self.addCamera(camera)
+        
+        self.cubeCollection = .init(instanceCount: 234)
         self.cubeCollection.position.z = -3
         self.addChild(cubeCollection)
         

@@ -18,8 +18,8 @@ class Scene: Node {
         return deltaTimeContainer
     }
     
-    override init() {
-        super.init()
+    override init(name: String = "Scene") {
+        super.init(name: name)
         start()
     }
     

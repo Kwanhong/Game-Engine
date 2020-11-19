@@ -1,47 +1,13 @@
 //
-//  MeshLibrary.swift
+//  Mesh.swift
 //  Game Engine
 //
-//  Created by 박관홍 on 2020/10/24.
+//  Created by 박관홍 on 2020/11/19.
 //
 
-import Foundation
 import MetalKit
 
-class MeshLibrary {
-    
-    private static var meshes: [MeshType:Mesh] = [:]
-    
-    public static func initialize() {
-        createDefaultMeshes()
-    }
-    
-    private static func createDefaultMeshes() {
-        meshes.updateValue(TriangleCustomMesh(), forKey: .triangleCustom)
-        meshes.updateValue(QuadCustomMesh(), forKey: .quadCustom)
-        meshes.updateValue(CubeCustomMesh(), forKey: .cubeCustom)
-    }
-    
-    public static func getMesh(_ meshType: MeshType)->Mesh {
-        if let mesh = meshes[meshType] {
-            return mesh
-        } else {
-            print("Error, There's no corresponding mesh of type: \(meshType)")
-            return TriangleCustomMesh()
-        }
-    }
-}
-
-protocol Mesh {
-    
-    var vertexCount: Int! { get }
-    var vertexBuffer: MTLBuffer! { get }
-    var instanceCount: Int { get set }
-    func drawPrimitives(_ renderCommandEncoder: MTLRenderCommandEncoder?)
-    
-}
-
-class CustomMesh: Mesh {
+class Mesh: NSObject {
     
     var vertices: [Vertex]!
     var vertexBuffer: MTLBuffer!
@@ -50,10 +16,11 @@ class CustomMesh: Mesh {
         return vertices.count
     }
     
-    init() {
+    override init() {
         
-        createVertices()
-        createBuffers()
+        super.init()
+        self.createVertices()
+        self.createBuffers()
         
     }
     
@@ -95,7 +62,7 @@ class CustomMesh: Mesh {
     
 }
 
-class TriangleCustomMesh: CustomMesh {
+class TriangleMesh: Mesh {
     
     override func createVertices() {
         
@@ -109,7 +76,7 @@ class TriangleCustomMesh: CustomMesh {
     
 }
 
-class QuadCustomMesh: CustomMesh {
+class QuadMesh: Mesh {
     
     override func createVertices() {
         
@@ -126,7 +93,7 @@ class QuadCustomMesh: CustomMesh {
     
 }
 
-class CubeCustomMesh: CustomMesh {
+class CubeMesh: Mesh {
     
     override func createVertices() {
         

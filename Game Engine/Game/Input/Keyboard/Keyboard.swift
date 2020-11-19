@@ -16,8 +16,8 @@ class Keyboard {
         keys[Int(keyCode)] = isOn
     }
     
-    public static func isKeyPressed(_ keycode: Keycode)->Bool {
-        return keys[Int(keycode.rawValue)]
+    public static func isKeyPressed(_ keyCode: KeyCode)->Bool {
+        return keys[Int(keyCode.rawValue)]
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Keycode: UInt16 {
+enum KeyCode: UInt16 {
     
     // Special Chars
     case space             = 0x31
