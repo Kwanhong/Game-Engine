@@ -13,8 +13,4 @@ class CubeObject: GameObject {
         super.init(name: "Cube Object", meshType: .cubeCustom)
     }
     
-    override func start() {
-        self.scale = .init(repeating: 0.01)
-    }
-    
 }

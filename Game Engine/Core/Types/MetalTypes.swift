@@ -67,4 +67,5 @@ struct ModelConstants: Sizable {
 struct Material: Sizable {
     var color: Vector4f = .init(0.8, 0.8, 0.8, 1)
     var useMaterialColor: Bool = false
+    var useTexture: Bool = false
 }

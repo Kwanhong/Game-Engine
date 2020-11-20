@@ -15,6 +15,7 @@ enum GraphicLibraryType {
     case depthStencilState
     case renderPipelineDescriptor
     case renderPipelineState
+    case samplerState
     case none
 }
 
@@ -33,6 +34,7 @@ class Graphics {
         shared.libraries.updateValue(DepthStencilStateLibrary(), forKey: .depthStencilState)
         shared.libraries.updateValue(RenderPipelineDescriptorLibrary(), forKey: .renderPipelineDescriptor)
         shared.libraries.updateValue(RenderPipelineStateLibrary(), forKey: .renderPipelineState)
+        shared.libraries.updateValue(SamplerStateLibrary(), forKey: .samplerState)
         shared.libraries.updateValue(EmptyLibrary(), forKey: .none)
         
     }
@@ -55,6 +57,8 @@ class Graphics {
             return .renderPipelineDescriptor
         } else if type == RenderPipelineStateLibrary.self {
             return .renderPipelineState
+        } else if type == SamplerStateLibrary.self {
+            return .samplerState
         } else { return .none }
         
     }
@@ -87,6 +91,10 @@ extension Graphics {
         
         static var renderPipeline: [RenderPipelineStateType: MTLRenderPipelineState] {
             return Lib.renderPipelineState.states
+        }
+        
+        static var sampler: [SamplerStateType: MTLSamplerState] {
+            return Lib.samplerState.states
         }
         
     }
@@ -135,6 +143,10 @@ extension Graphics {
         
         static var renderPipelineState: RenderPipelineStateLibrary {
             return libraries(RenderPipelineStateLibrary.self)
+        }
+        
+        static var samplerState: SamplerStateLibrary {
+            return libraries(SamplerStateLibrary.self)
         }
         
     }

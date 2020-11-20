@@ -97,9 +97,9 @@ class DebugCamera: Camera {
         }
         
         if Keyboard.isKeyPressed(.q) {
-            self.position += Vector3f(.zero, -deltaTime * movingSpeed, .zero).rotated(by: rotation)
+            self.position += Vector3f(.zero, -deltaTime * movingSpeed, .zero)
         } else if Keyboard.isKeyPressed(.e) {
-            self.position += Vector3f(.zero, deltaTime * movingSpeed, .zero).rotated(by: rotation)
+            self.position += Vector3f(.zero, deltaTime * movingSpeed, .zero)
         }
         
     }

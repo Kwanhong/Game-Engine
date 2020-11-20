@@ -5,10 +5,11 @@
 //  Created by 박관홍 on 2020/11/18.
 //
 
-import Foundation
+import MetalKit
 
 enum EntityLibraryType {
     case mesh
+    case texture
     case none
 }
 
@@ -22,6 +23,7 @@ class Entities {
         
         shared = .init()
         shared.libraries.updateValue(MeshLibrary(), forKey: .mesh)
+        shared.libraries.updateValue(TextureLibrary(), forKey: .texture)
         shared.libraries.updateValue(EmptyLibrary(), forKey: .none)
         
     }
@@ -34,8 +36,22 @@ class Entities {
         
         if type == MeshLibrary.self {
             return .mesh
+        } else if type == TextureLibrary.self {
+            return .texture
         } else {
             return .none
+        }
+        
+    }
+    
+}
+
+extension Entities {
+    
+    class Res {
+        
+        static var texture: [TextureType: MTLTexture] {
+            return Lib.texture.textures
         }
         
     }
@@ -48,6 +64,10 @@ extension Entities {
         
         static var mesh: MeshLibrary {
             return libraries(MeshLibrary.self)
+        }
+        
+        static var texture: TextureLibrary {
+            return libraries(TextureLibrary.self)
         }
         
     }

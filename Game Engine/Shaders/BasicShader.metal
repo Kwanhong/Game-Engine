@@ -33,10 +33,20 @@ vertex RasterizerData basic_vertex_shader(
 
 fragment half4 basic_fragment_shader(
     RasterizerData data[[stage_in]],
-    constant Material &material [[buffer(1)]]
+    constant Material &material [[buffer(1)]],
+    sampler sampler2d [[sampler(0)]],
+    texture2d<float> texture [[texture(0)]]
 ) {
     
-    float4 color = material.useMaterialColor ? material.color : data.color;
+    float4 color;
+    
+    if (material.useTexture) {
+        color = texture.sample(sampler2d, data.texcoord);
+    } else if (material.useMaterialColor) {
+        color = material.color;
+    } else {
+        color = data.color;
+    }
     
     return half4(color.r, color.g, color.b, color.a);
 }

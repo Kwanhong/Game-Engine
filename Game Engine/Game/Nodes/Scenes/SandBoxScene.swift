@@ -19,47 +19,11 @@ class SandBoxScene: Scene {
         
         self.addCamera(camera)
         
-        self.cubeCollection = .init(instanceCount: 234)
-        self.cubeCollection.position.z = -3
-        self.addChild(cubeCollection)
-        
-        let skybox = CubeObject()
-        skybox.scale = .init(repeating: 5)
-        skybox.position.z = -3
-        self.addChild(skybox)
+        let box = CubeObject()
+        box.position.z = -4
+        box.setTexture(.woodenBox)
+        self.addChild(box)
         
     }
-    
-    override func update() {
-        
-        time += deltaTime * timeScale
-        
-        let rads: Float = 25
-        let yTol: Float = 0.25
-        let xTol: Float = 0.25
-        
-        var index = 0
-        
-        cubeCollection.rotation.y = time
-        
-        for i in stride(from: Float(-1), to: Float(1.001), by: yTol) {
-            
-            let r = sqrt(1 - i * i) * rads
-            
-            for j in stride(from: Float.zero, to: Float.tau, by: xTol) {
-                
-                cubeCollection.nodes[index].position.x = cos(j + time) * r
-                cubeCollection.nodes[index].position.z = sin(j + time) * r
-                cubeCollection.nodes[index].position.y = -tan(i + time) * rads
-                
-                cubeCollection.nodes[index].rotation.x = sin(time) * .tau + j
-                cubeCollection.nodes[index].rotation.y = cos(time) * .tau + j
-                
-                index += 1
-            }
-            
-        }
-        
-    }
-    
+
 }

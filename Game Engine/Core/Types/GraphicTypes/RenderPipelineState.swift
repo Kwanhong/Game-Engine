@@ -23,7 +23,7 @@ class RenderPipelineState: NSObject {
                 descriptor: Graphics.Desc.renderPipeline[type]!
             )
         } catch {
-            print("Error, Make Render pipelineState: \(name), \(error)")
+            print("Error, Make render pipelineState: \(name), \(error)")
         }
         
         self.state = renderPipelineState

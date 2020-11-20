@@ -81,7 +81,7 @@ extension Vector3f {
         self = Vector3f(xyVec.x, xyVec.y, z)
         
         let yzVec = Math.getRotated(vector: Vector2f(y, z), to: rotation.x)
-        self = Vector3f(x, yzVec.x, yzVec.y)
+        self = Vector3f(x, -yzVec.x, yzVec.y)
         
     }
     
@@ -96,7 +96,7 @@ extension Vector3f {
         result = Vector3f(xzVec.x, result.y, xzVec.y)
         
         let xyVec = Vector2f(result.x, result.y).rotated(to: rotation.z)
-        result = Vector3f(xyVec.x, xyVec.y, result.z)
+        result = Vector3f(xyVec.x, -xyVec.y, result.z)
         
         return result
         

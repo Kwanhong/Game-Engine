@@ -12,6 +12,7 @@ class GameObject: Node {
     
     private var modelConstants = ModelConstants()
     private var material = Material()
+    private var textureType: TextureType = .woodenBox
     private var mesh: Mesh!
     
     private var deltaTimeContainer: Float = .zero
@@ -55,7 +56,11 @@ extension GameObject: Renderable {
         
         renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
         
+        renderCommandEncoder?.setFragmentTexture(Entities.Res.texture[textureType], index: 0)
+        
         renderCommandEncoder?.setFragmentBytes(&material, length: Material.stride, index: 1)
+        
+        renderCommandEncoder?.setFragmentSamplerState(Graphics.State.sampler[.linear], index: 0)
         
         mesh.drawPrimitives(renderCommandEncoder)
     }
@@ -67,6 +72,13 @@ extension GameObject {
     public func setColor(_ color: Vector4f) {
         self.material.color = color
         self.material.useMaterialColor = true
+        self.material.useTexture = false
+    }
+    
+    public func setTexture(_ type: TextureType) {
+        self.textureType = type
+        self.material.useTexture = true
+        self.material.useMaterialColor = false
     }
     
 }
