@@ -12,7 +12,7 @@ import AppKit
 class DebugCamera: Camera {
     
     let mouseSensitivity: Float = 1
-    let movingSpeed: Float = 2
+    let movingSpeed: Float = 5
     
     var cameraType: CameraType = .debug
     var settings: CameraSettings = .init()

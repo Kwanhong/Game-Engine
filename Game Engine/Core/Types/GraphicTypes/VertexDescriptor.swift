@@ -19,7 +19,8 @@ struct VertexDescriptorConfig {
     
     var position: VertexDescriptorAttributesConfig
     var color: VertexDescriptorAttributesConfig
-    var uvMap: VertexDescriptorAttributesConfig
+    var texcoord: VertexDescriptorAttributesConfig
+    var normal: VertexDescriptorAttributesConfig
     
 }
 
@@ -43,13 +44,26 @@ class VertexDescriptor: NSObject {
         descriptor.attributes[1].bufferIndex = config.color.bufferIndex
         descriptor.attributes[1].offset = config.color.offset
         
-        // UVMap
-        descriptor.attributes[2].format = config.uvMap.format
-        descriptor.attributes[2].bufferIndex = config.uvMap.bufferIndex
-        descriptor.attributes[2].offset = config.uvMap.offset
+        // Texture Coordinates
+        descriptor.attributes[2].format = config.texcoord.format
+        descriptor.attributes[2].bufferIndex = config.texcoord.bufferIndex
+        descriptor.attributes[2].offset = config.texcoord.offset
+        
+        // Normal
+        descriptor.attributes[3].format = config.normal.format
+        descriptor.attributes[3].bufferIndex = config.normal.bufferIndex
+        descriptor.attributes[3].offset = config.normal.offset
         
         descriptor.layouts[0].stride = Vertex.stride
         
+    }
+    
+}
+
+extension MDLVertexDescriptor {
+    
+    func setAttributeName(_ name: String, atIndex index: Int) {
+        (attributes[index] as? MDLVertexAttribute)?.name = name
     }
     
 }

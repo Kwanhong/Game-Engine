@@ -12,7 +12,7 @@ class GameObject: Node {
     
     private var modelConstants = ModelConstants()
     private var material = Material()
-    private var textureType: TextureType = .woodenBox
+    private var textureType: TextureType = .none
     private var mesh: Mesh!
     
     private var deltaTimeContainer: Float = .zero
@@ -69,16 +69,30 @@ extension GameObject: Renderable {
 
 extension GameObject {
     
-    public func setColor(_ color: Vector4f) {
-        self.material.color = color
-        self.material.useMaterialColor = true
-        self.material.useTexture = false
+    var materialColor: Vector4f {
+        get { return self.material.color } set {
+            self.material.color = newValue
+            self.material.useMaterialColor = true
+            self.material.useTexture = false
+        }
     }
     
-    public func setTexture(_ type: TextureType) {
-        self.textureType = type
-        self.material.useTexture = true
-        self.material.useMaterialColor = false
+    var materialTextureType: TextureType {
+        get { return self.textureType } set {
+            self.textureType = newValue
+            self.material.useTexture = true
+            self.material.useMaterialColor = false
+        }
+    }
+    
+    var usePhongShader: Bool {
+        set { self.material.usePhongShader = newValue }
+        get { return self.material.usePhongShader }
+    }
+    
+    var ambientColor: Vector3f {
+        set { self.material.ambient = newValue }
+        get { return self.material.ambient }
     }
     
 }

@@ -23,12 +23,18 @@ class VertexDescriptorLibrary: GenericLibrary<VertexDescriptorType, VertexDescri
         let colorAttributes = VertexDescriptorAttributesConfig(
             format: .float4, bufferIndex: .zero, offset: Vector3f.size
         )
-        let uvMapAttributes = VertexDescriptorAttributesConfig(
+        let texcoordAttributes = VertexDescriptorAttributesConfig(
             format: .float2, bufferIndex: .zero, offset: Vector3f.size + Vector4f.size
+        )
+        let normalAttributes = VertexDescriptorAttributesConfig(
+            format: .float3, bufferIndex: .zero, offset: Vector2f.size + Vector3f.size + Vector4f.size
         )
         
         let basicConfig = VertexDescriptorConfig(
-            position: positionAttributes, color: colorAttributes, uvMap: uvMapAttributes
+            position: positionAttributes,
+            color: colorAttributes,
+            texcoord: texcoordAttributes,
+            normal: normalAttributes
         )
         
         let basicDescriptor = VertexDescriptor(

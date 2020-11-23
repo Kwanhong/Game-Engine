@@ -11,6 +11,7 @@ import Foundation
 class Scene: Node {
     
     var cameraManager = CameraManager()
+    var lightManager = LightManager()
     var sceneConstants = SceneConstants()
     
     private var deltaTimeContainer: Float = .zero
@@ -21,6 +22,11 @@ class Scene: Node {
     override init(name: String = "Scene") {
         super.init(name: name)
         start()
+    }
+    
+    func addLight(object: LightObject) {
+        lightManager.addLight(object: object)
+        addChild(object)
     }
     
     func addCamera(_ camera: Camera, setItNow: Bool = true) {
@@ -56,6 +62,7 @@ class Scene: Node {
             index: 1
         )
         
+        self.lightManager.setLightData(renderCommandEncoder)
         super.render(renderCommandEncoder: renderCommandEncoder)
         
     }

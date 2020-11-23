@@ -12,12 +12,15 @@ struct VertexIn {
     float3 position[[attribute(0)]];
     float4 color[[attribute(1)]];
     float2 texcoord[[attribute(2)]];
+    float3 normal[[attribute(3)]];
 };
 
 struct RasterizerData {
     float4 position[[position]];
     float4 color;
     float2 texcoord;
+    float3 worldPosition;
+    float3 surfaceNormal;
 };
 
 struct SceneConstants {
@@ -31,6 +34,17 @@ struct ModelConstants {
 
 struct Material {
     float4 color;
+    float3 ambient;
+    float3 diffuse;
     bool useMaterialColor;
     bool useTexture;
+    bool usePhongShader;
+};
+
+struct LightData {
+    float3 color;
+    float3 position;
+    float brightness;
+    float ambientIntensity;
+    float diffuseIntensity;
 };

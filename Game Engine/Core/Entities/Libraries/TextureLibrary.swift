@@ -9,6 +9,10 @@ import MetalKit
 
 enum TextureType: String {
     case woodenBox = "wooden_box"
+    case grass = "grass"
+    case sky = "sky"
+    case f16t = "F16t"
+    case f16s = "F16s"
     case none = "none"
 }
 
@@ -18,10 +22,20 @@ class TextureLibrary: GenericLibrary<TextureType, Texture> {
     
     override func initialize() {
         
-        let texture = Texture(name: TextureType.woodenBox.rawValue)
+        updateLibrary(type: .woodenBox)
+        updateLibrary(type: .grass)
+        updateLibrary(type: .sky)
+        updateLibrary(type: .f16t, ext: "bmp", origin: .bottomLeft)
+        updateLibrary(type: .f16s, ext: "bmp", origin: .bottomLeft)
         
-        library.updateValue(texture, forKey: .woodenBox)
-        textures.updateValue(texture.texture, forKey: .woodenBox)
+    }
+    
+    func updateLibrary(type: TextureType, ext: String = "png", origin: MTKTextureLoader.Origin = .topLeft) {
+        
+        let texture = Texture(name: type.rawValue, ext: ext, origin: origin)
+        
+        library.updateValue(texture, forKey: type)
+        textures.updateValue(texture.texture, forKey: type)
         
     }
     

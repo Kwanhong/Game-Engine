@@ -13,6 +13,7 @@ class InstancedGameObject: Node {
     var nodes: [Node] = []
     
     private var material = Material()
+    private var textureType: TextureType = .none
     private var mesh: Mesh!
     private var modelConstantsBuffer: MTLBuffer!
     
@@ -81,7 +82,11 @@ extension InstancedGameObject: Renderable {
         
         renderCommandEncoder?.setVertexBuffer(modelConstantsBuffer, offset: 0, index: 2)
         
+        renderCommandEncoder?.setFragmentTexture(Entities.Res.texture[textureType], index: 0)
+        
         renderCommandEncoder?.setFragmentBytes(&material, length: Material.stride, index: 1)
+        
+        renderCommandEncoder?.setFragmentSamplerState(Graphics.State.sampler[.linear], index: 0)
         
         mesh.drawPrimitives(renderCommandEncoder)
     }
@@ -90,9 +95,30 @@ extension InstancedGameObject: Renderable {
 
 extension InstancedGameObject {
     
-    public func setColor(_ color: Vector4f) {
-        self.material.color = color
-        self.material.useMaterialColor = true
+    var materialColor: Vector4f {
+        get { return self.material.color } set {
+            self.material.color = newValue
+            self.material.useMaterialColor = true
+            self.material.useTexture = false
+        }
+    }
+    
+    var materialTextureType: TextureType {
+        get { return self.textureType } set {
+            self.textureType = newValue
+            self.material.useTexture = true
+            self.material.useMaterialColor = false
+        }
+    }
+    
+    var usePhongShader: Bool {
+        set { self.material.usePhongShader = newValue }
+        get { return self.material.usePhongShader }
+    }
+    
+    var ambientColor: Vector3f {
+        set { self.material.ambient = newValue }
+        get { return self.material.ambient }
     }
     
 }

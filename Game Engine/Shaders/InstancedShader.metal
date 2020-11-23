@@ -16,17 +16,28 @@ vertex RasterizerData instanced_vertex_shader(
     uint instanceId [[instance_id]]
 ) {
     
+    float4 worldPosition = (
+        modelConsts[instanceId].modelMatrix *
+        float4(vertexIn.position, 1)
+    );
+    
     RasterizerData data;
     
     data.texcoord = vertexIn.texcoord;
     
     data.color = vertexIn.color;
     
+    data.worldPosition = worldPosition.xyz;
+    
+    data.surfaceNormal = (
+        modelConsts[instanceId].modelMatrix *
+        float4(vertexIn.normal, 1)
+    ).xyz;
+    
     data.position = (
         sceneConsts.projectionMatrix *
         sceneConsts.viewMatrix *
-        modelConsts[instanceId].modelMatrix *
-        float4(vertexIn.position, 1)
+        worldPosition
     );
     
     return data;

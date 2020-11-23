@@ -34,7 +34,7 @@ class Mouse {
     
     public static func setMousePositionChange(overallPosition: Vector2f, deltaPosition: Vector2f) {
         overallMousePosition = overallPosition
-        mouseDeltaPosition += deltaPosition
+        mouseDeltaPosition = deltaPosition
     }
     
     public static func scrollMouse(deltaY: Float) {
@@ -42,25 +42,9 @@ class Mouse {
         scrollWheelChange += deltaY
     }
     
-    public static func getMouseWindowPosition()->Vector2f {
-        return overallMousePosition
-    }
-    
     public static func getWeelDeltaPosition()->Float {
         let result = scrollWheelChange
         scrollWheelChange = .zero
-        return result
-    }
-    
-    public static func getMouseDeltaPosX()->Float {
-        let result = mouseDeltaPosition.x
-        mouseDeltaPosition.x = .zero
-        return result
-    }
-    
-    public static func getMouseDeltaPosY()->Float {
-        let result = mouseDeltaPosition.y
-        mouseDeltaPosition.y = .zero
         return result
     }
     
@@ -70,6 +54,10 @@ class Mouse {
         let x = Math.map(position.x, start1: .zero, stop1: screenSize.x, start2: -1, stop2: 1)
         let y = Math.map(position.y, start1: .zero, stop1: screenSize.y, start2: -1, stop2: 1)
         return Vector2f(x, y)
+    }
+    
+    public static func getMouseWindowPosition()->Vector2f {
+        return overallMousePosition
     }
     
     public static func getMouseViewportPosition()->Vector2f {

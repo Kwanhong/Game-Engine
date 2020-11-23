@@ -13,8 +13,4 @@ class CubeCollection: InstancedGameObject {
         super.init(name: "Cube Collection", meshType: .cubeCustom, instanceCount: count)
     }
     
-    override func start() {
-        self.scale = .init(repeating: 0.005)
-    }
-    
 }

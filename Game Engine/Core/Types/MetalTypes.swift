@@ -21,6 +21,8 @@ extension Bool: Sizable { }
 
 extension Float: Sizable { }
 
+extension Int32: Sizable { }
+
 extension Vector2f: Sizable { }
 
 extension Vector3f: Sizable { }
@@ -53,6 +55,7 @@ struct Vertex: Sizable {
     var position: Vector3f
     var color: Vector4f
     var texcoord: Vector2f
+    var normal: Vector3f = .one
 }
 
 struct SceneConstants: Sizable {
@@ -65,7 +68,24 @@ struct ModelConstants: Sizable {
 }
 
 struct Material: Sizable {
-    var color: Vector4f = .init(0.8, 0.8, 0.8, 1)
+    
+    var color: Vector4f = .init(1, 1, 1, 1)
+    var ambient: Vector3f = .init(0.25, 0.25, 0.25)
+    var diffuse: Vector3f = .init(1, 1, 1)
+    
     var useMaterialColor: Bool = false
     var useTexture: Bool = false
+    var usePhongShader: Bool = true
+    
+}
+
+struct LightData: Sizable {
+    
+    var color: Vector3f = .init(1, 1, 1)
+    var position: Vector3f = .zero
+    
+    var brightness: Float = 5
+    var ambientIntensity: Float = 0.25
+    var diffuseIntensity: Float = 1
+    
 }
