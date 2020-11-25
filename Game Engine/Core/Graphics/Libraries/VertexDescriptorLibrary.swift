@@ -27,7 +27,7 @@ class VertexDescriptorLibrary: GenericLibrary<VertexDescriptorType, VertexDescri
             format: .float2, bufferIndex: .zero, offset: Vector3f.size + Vector4f.size
         )
         let normalAttributes = VertexDescriptorAttributesConfig(
-            format: .float3, bufferIndex: .zero, offset: Vector2f.size + Vector3f.size + Vector4f.size
+            format: .float3, bufferIndex: .zero, offset: Vector3f.size + Vector3f.size + Vector4f.size
         )
         
         let basicConfig = VertexDescriptorConfig(

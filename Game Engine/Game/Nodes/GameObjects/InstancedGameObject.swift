@@ -33,7 +33,7 @@ class InstancedGameObject: Node {
     
     private func generateInstances(count: Int) {
         for _ in .zero..<count {
-            self.nodes.append(Node())
+            self.nodes.append(Node(name: "\(name) (Instanced Node)"))
         }
     }
     

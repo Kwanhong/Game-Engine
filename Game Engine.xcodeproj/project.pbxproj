@@ -30,8 +30,6 @@
 		5192A35D2567B9A90005D275 /* F16Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192A35C2567B9A90005D275 /* F16Object.swift */; };
 		5192A36E256B4F1E0005D275 /* LightObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192A36D256B4F1E0005D275 /* LightObject.swift */; };
 		5192A374256B508D0005D275 /* LightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192A373256B508D0005D275 /* LightManager.swift */; };
-		5192A37F256BB2140005D275 /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5192A37E256BB2140005D275 /* cube.obj */; };
-		5192A38C256BE9640005D275 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5192A38B256BE9640005D275 /* plane.obj */; };
 		5193BED42563B9A6004D85BB /* CubeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193BED32563B9A6004D85BB /* CubeCollection.swift */; };
 		5193BEF92564CEEC004D85BB /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193BEF82564CEEC004D85BB /* Shader.swift */; };
 		5193BF012564CEF7004D85BB /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193BF002564CEF7004D85BB /* Library.swift */; };
@@ -113,8 +111,6 @@
 		5192A35C2567B9A90005D275 /* F16Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F16Object.swift; sourceTree = "<group>"; };
 		5192A36D256B4F1E0005D275 /* LightObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightObject.swift; sourceTree = "<group>"; };
 		5192A373256B508D0005D275 /* LightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightManager.swift; sourceTree = "<group>"; };
-		5192A37E256BB2140005D275 /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
-		5192A38B256BE9640005D275 /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
 		5193BED32563B9A6004D85BB /* CubeCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeCollection.swift; sourceTree = "<group>"; };
 		5193BEF82564CEEC004D85BB /* Shader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shader.swift; sourceTree = "<group>"; };
 		5193BF002564CEF7004D85BB /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
@@ -259,8 +255,6 @@
 		5192A34C2567AA8A0005D275 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5192A38B256BE9640005D275 /* plane.obj */,
-				5192A37E256BB2140005D275 /* cube.obj */,
 				5192A3512567AA980005D275 /* f16.obj */,
 			);
 			path = Models;
@@ -603,11 +597,9 @@
 				51D3EB182521CB0900D03A9C /* Assets.xcassets in Resources */,
 				5192A33F256799150005D275 /* sky.png in Resources */,
 				5192A3532567AA980005D275 /* F16t.bmp in Resources */,
-				5192A37F256BB2140005D275 /* cube.obj in Resources */,
 				5192A3542567AA980005D275 /* F16s.bmp in Resources */,
 				51D3EB1B2521CB0900D03A9C /* Main.storyboard in Resources */,
 				5192A335256786330005D275 /* wooden_box.png in Resources */,
-				5192A38C256BE9640005D275 /* plane.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

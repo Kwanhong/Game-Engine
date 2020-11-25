@@ -10,7 +10,7 @@ import Foundation
 class CubeObject: GameObject {
     
     init() {
-        super.init(name: "Cube Object", meshType: .cube)
+        super.init(name: "Cube Object", meshType: .builtInCube)
     }
     
 }

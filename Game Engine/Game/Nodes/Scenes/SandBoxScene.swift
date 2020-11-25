@@ -43,9 +43,10 @@ class SandBoxScene: Scene {
         blueLight.lightColor = .init(0.25, 0.75, 1)
         self.addLight(object: blueLight)
         
-        let plane = GameObject(meshType: .plane)
+        let plane = GameObject(meshType: .builtInQuad)
         plane.scale = .init(repeating: 10)
         plane.position.y = -2
+        plane.rotation.x = Float(-90).toRadians
         plane.materialColor = .one
         self.addChild(plane)
         

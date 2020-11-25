@@ -21,7 +21,7 @@ class SamplerStateLibrary: GenericLibrary<SamplerStateType, SamplerState> {
         
         let linearState = SamplerState(
             name: "Linear Sampler State",
-            min: .linear, max: .linear
+            min: .linear, max: .linear, mipmap: .linear
         )
         
         library.updateValue(linearState, forKey: .linear)
@@ -36,12 +36,13 @@ class SamplerState: NSObject {
     var name: String
     var state: MTLSamplerState
     
-    init(name: String, min: MTLSamplerMinMagFilter, max: MTLSamplerMinMagFilter) {
+    init(name: String, min: MTLSamplerMinMagFilter, max: MTLSamplerMinMagFilter, mipmap: MTLSamplerMipFilter) {
         self.name = name
         
         let descriptor = MTLSamplerDescriptor()
         descriptor.minFilter = min
         descriptor.magFilter = max
+        descriptor.mipFilter = mipmap
         descriptor.label = name
         self.state = Engine.device.makeSamplerState(descriptor: descriptor)!
         

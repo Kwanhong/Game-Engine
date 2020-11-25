@@ -20,7 +20,7 @@ class GameObject: Node {
         return deltaTimeContainer
     }
     
-    init(name: String = "Game Object", meshType: MeshType = .quadCustom) {
+    init(name: String = "Game Object", meshType: MeshType = .builtInQuad) {
         super.init(name: name)
         self.mesh = Entities.Lib.mesh[meshType]
         self.start()
