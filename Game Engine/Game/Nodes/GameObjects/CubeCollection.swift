@@ -10,7 +10,7 @@ import Foundation
 class CubeCollection: InstancedGameObject {
     
     init(instanceCount count: Int) {
-        super.init(name: "Cube Collection", meshType: .cubeCustom, instanceCount: count)
+        super.init(name: "Cube Collection", meshType: .cube, instanceCount: count)
     }
     
 }

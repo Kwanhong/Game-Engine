@@ -28,6 +28,8 @@ vertex RasterizerData basic_vertex_shader(
     
     data.worldPosition = worldPosition.xyz;
     
+    data.toCameraVector = sceneConsts.cameraPosition - worldPosition.xyz;
+    
     data.surfaceNormal = (
         modelConsts.modelMatrix *
         float4(vertexIn.normal, 1)
@@ -65,6 +67,7 @@ fragment half4 basic_fragment_shader(
         
         float3 totalAmbient = float3(0, 0, 0);
         float3 totalDiffuse = float3(0, 0, 0);
+        float3 totalSpecular = float3(0, 0, 0);
         
         for (int i = 0; i < lightCount; i++) {
             
@@ -78,15 +81,27 @@ fragment half4 basic_fragment_shader(
             totalDiffuse += clamp((
                 (material.diffuse * lightData.diffuseIntensity) *
                 (lightData.color * lightData.brightness) *
-                max(dot( // Surface normal Dot Product
+                max(dot( // Surface normal dot product
                     normalize(data.surfaceNormal),
                     normalize(lightData.position - data.worldPosition)
                 ), 0.0)
             ), 0.0, 1.0);
             
+            totalSpecular += clamp((
+                (material.specular * lightData.specularIntensity) *
+                (lightData.color * lightData.brightness) *
+                pow(max(dot( // Refection normal dot product
+                    normalize(data.toCameraVector),
+                    normalize(reflect((
+                        data.worldPosition -
+                        lightData.position
+                    ), data.surfaceNormal))
+                ), 0.0), material.shininess)
+            ), 0.0, 1.0);
+            
         }
         
-        float3 phong = totalAmbient + totalDiffuse;
+        float3 phong = totalAmbient + totalDiffuse + totalSpecular;
         
         color *= float4(phong, 1);
         

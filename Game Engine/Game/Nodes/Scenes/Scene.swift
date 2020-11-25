@@ -37,6 +37,7 @@ class Scene: Node {
         if let camera = cameraManager.currentCamera {
             sceneConstants.viewMatrix = camera.viewMatrix
             sceneConstants.projectionMatrix = camera.projectionMatrix
+            sceneConstants.cameraPosition = camera.position
         }
     }
     

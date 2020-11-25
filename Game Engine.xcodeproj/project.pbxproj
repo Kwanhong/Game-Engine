@@ -24,7 +24,6 @@
 		5192A335256786330005D275 /* wooden_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 5192A334256786330005D275 /* wooden_box.png */; };
 		5192A33F256799150005D275 /* sky.png in Resources */ = {isa = PBXBuildFile; fileRef = 5192A33E256799150005D275 /* sky.png */; };
 		5192A34425679A210005D275 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 5192A34325679A210005D275 /* grass.png */; };
-		5192A3522567AA980005D275 /* f16.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 5192A34E2567AA980005D275 /* f16.mtl */; };
 		5192A3532567AA980005D275 /* F16t.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 5192A34F2567AA980005D275 /* F16t.bmp */; };
 		5192A3542567AA980005D275 /* F16s.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 5192A3502567AA980005D275 /* F16s.bmp */; };
 		5192A3552567AA980005D275 /* f16.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5192A3512567AA980005D275 /* f16.obj */; };
@@ -32,6 +31,7 @@
 		5192A36E256B4F1E0005D275 /* LightObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192A36D256B4F1E0005D275 /* LightObject.swift */; };
 		5192A374256B508D0005D275 /* LightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192A373256B508D0005D275 /* LightManager.swift */; };
 		5192A37F256BB2140005D275 /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5192A37E256BB2140005D275 /* cube.obj */; };
+		5192A38C256BE9640005D275 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = 5192A38B256BE9640005D275 /* plane.obj */; };
 		5193BED42563B9A6004D85BB /* CubeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193BED32563B9A6004D85BB /* CubeCollection.swift */; };
 		5193BEF92564CEEC004D85BB /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193BEF82564CEEC004D85BB /* Shader.swift */; };
 		5193BF012564CEF7004D85BB /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193BF002564CEF7004D85BB /* Library.swift */; };
@@ -107,7 +107,6 @@
 		5192A334256786330005D275 /* wooden_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wooden_box.png; sourceTree = "<group>"; };
 		5192A33E256799150005D275 /* sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sky.png; sourceTree = "<group>"; };
 		5192A34325679A210005D275 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
-		5192A34E2567AA980005D275 /* f16.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = f16.mtl; sourceTree = "<group>"; };
 		5192A34F2567AA980005D275 /* F16t.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = F16t.bmp; sourceTree = "<group>"; };
 		5192A3502567AA980005D275 /* F16s.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = F16s.bmp; sourceTree = "<group>"; };
 		5192A3512567AA980005D275 /* f16.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = f16.obj; sourceTree = "<group>"; };
@@ -115,6 +114,7 @@
 		5192A36D256B4F1E0005D275 /* LightObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightObject.swift; sourceTree = "<group>"; };
 		5192A373256B508D0005D275 /* LightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightManager.swift; sourceTree = "<group>"; };
 		5192A37E256BB2140005D275 /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		5192A38B256BE9640005D275 /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
 		5193BED32563B9A6004D85BB /* CubeCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeCollection.swift; sourceTree = "<group>"; };
 		5193BEF82564CEEC004D85BB /* Shader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shader.swift; sourceTree = "<group>"; };
 		5193BF002564CEF7004D85BB /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
@@ -259,19 +259,11 @@
 		5192A34C2567AA8A0005D275 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5192A38B256BE9640005D275 /* plane.obj */,
 				5192A37E256BB2140005D275 /* cube.obj */,
-				5192A34D2567AA980005D275 /* F16 */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		5192A34D2567AA980005D275 /* F16 */ = {
-			isa = PBXGroup;
-			children = (
-				5192A34E2567AA980005D275 /* f16.mtl */,
 				5192A3512567AA980005D275 /* f16.obj */,
 			);
-			path = F16;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5192A372256B505E0005D275 /* LightObjects */ = {
@@ -367,6 +359,7 @@
 		51C059FC2560FAC600A6914D /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				51D3EB6D2521E8AA00D03A9C /* Shaders */,
 				51D3EB6B2521E89000D03A9C /* Libraries */,
 				5193BF0A2564EB71004D85BB /* Graphics.swift */,
 			);
@@ -399,7 +392,6 @@
 				5193BF122565085A004D85BB /* Game */,
 				51D3EB6A2521E88900D03A9C /* Core */,
 				51D3EB6C2521E8A400D03A9C /* Displays */,
-				51D3EB6D2521E8AA00D03A9C /* Shaders */,
 				5192A330256785FF0005D275 /* Resources */,
 				51D3EB632521E82F00D03A9C /* XCode Files */,
 			);
@@ -610,12 +602,12 @@
 				5192A34425679A210005D275 /* grass.png in Resources */,
 				51D3EB182521CB0900D03A9C /* Assets.xcassets in Resources */,
 				5192A33F256799150005D275 /* sky.png in Resources */,
-				5192A3522567AA980005D275 /* f16.mtl in Resources */,
 				5192A3532567AA980005D275 /* F16t.bmp in Resources */,
 				5192A37F256BB2140005D275 /* cube.obj in Resources */,
 				5192A3542567AA980005D275 /* F16s.bmp in Resources */,
 				51D3EB1B2521CB0900D03A9C /* Main.storyboard in Resources */,
 				5192A335256786330005D275 /* wooden_box.png in Resources */,
+				5192A38C256BE9640005D275 /* plane.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

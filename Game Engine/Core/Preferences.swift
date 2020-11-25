@@ -14,12 +14,13 @@ public enum ClearColor {
     static let gray = MTLClearColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1)
     static let darkGray = MTLClearColor(red: 0.16, green: 0.15, blue: 0.17, alpha: 1)
     static let black = MTLClearColor(red: 0, green: 0, blue: 0, alpha: 1)
+    static let solarizedDark = MTLClearColor(red: 0.03, green: 0.16, blue: 0.21, alpha: 1)
     
 }
 
 class Preferences {
     
-    static var clearColor = ClearColor.darkGray
+    static var clearColor = ClearColor.solarizedDark
     static var mainPixelFormat = MTLPixelFormat.bgra8Unorm
     static var mainDepthPixelFormat = MTLPixelFormat.depth32Float
     static var startingSceneType: SceneType = .sandBox

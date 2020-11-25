@@ -61,6 +61,7 @@ struct Vertex: Sizable {
 struct SceneConstants: Sizable {
     var viewMatrix: Matrix4x4f = .identity
     var projectionMatrix: Matrix4x4f = .identity
+    var cameraPosition: Vector3f = .zero
 }
 
 struct ModelConstants: Sizable {
@@ -72,6 +73,8 @@ struct Material: Sizable {
     var color: Vector4f = .init(1, 1, 1, 1)
     var ambient: Vector3f = .init(0.25, 0.25, 0.25)
     var diffuse: Vector3f = .init(1, 1, 1)
+    var specular: Vector3f = .init(1, 1, 1)
+    var shininess: Float = 5
     
     var useMaterialColor: Bool = false
     var useTexture: Bool = false
@@ -84,8 +87,9 @@ struct LightData: Sizable {
     var color: Vector3f = .init(1, 1, 1)
     var position: Vector3f = .zero
     
-    var brightness: Float = 5
-    var ambientIntensity: Float = 0.25
+    var brightness: Float = 0.5
+    var ambientIntensity: Float = 1
     var diffuseIntensity: Float = 1
+    var specularIntensity: Float = 1
     
 }

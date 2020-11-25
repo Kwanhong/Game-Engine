@@ -29,6 +29,8 @@ vertex RasterizerData instanced_vertex_shader(
     
     data.worldPosition = worldPosition.xyz;
     
+    data.toCameraVector = sceneConsts.cameraPosition - worldPosition.xyz;
+    
     data.surfaceNormal = (
         modelConsts[instanceId].modelMatrix *
         float4(vertexIn.normal, 1)
