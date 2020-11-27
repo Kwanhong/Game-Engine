@@ -13,6 +13,7 @@ enum MeshType {
     case builtInTriangle
     case builtInQuad
     case builtInCube
+    case builtInSkyBox
     case f16
 }
 
@@ -24,7 +25,8 @@ class MeshLibrary: GenericLibrary<MeshType, Mesh> {
         library.updateValue(TriangleBuiltInMesh(), forKey: .builtInTriangle)
         library.updateValue(QuadBuiltInMesh(), forKey: .builtInQuad)
         library.updateValue(CubeBuiltInMesh(), forKey: .builtInCube)
-        library.updateValue(ModelMesh(name: "f16"), forKey: .f16)
+        library.updateValue(SkyBoxBuiltInMesh(), forKey: .builtInSkyBox)
+        library.updateValue(Mesh(name: "f16"), forKey: .f16)
         
     }
     

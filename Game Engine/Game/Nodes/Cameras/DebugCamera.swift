@@ -11,8 +11,8 @@ import AppKit
 
 class DebugCamera: Camera {
     
-    let mouseSensitivity: Float = 1
-    let movingSpeed: Float = 5
+    var mouseSensitivity: Float = 1
+    var movingSpeed: Float = 5
     
     var cameraType: CameraType = .debug
     var settings: CameraSettings = .init()
@@ -57,7 +57,7 @@ class DebugCamera: Camera {
         
     }
     
-    func lookAtMousePoint() {
+    private func lookAtMousePoint() {
         
         let hype = settings.farValue / cos(settings.fovDegrees.toRadians)
         let farWidth = sqrt((hype * hype) - (settings.farValue * settings.farValue)) * 2
@@ -71,7 +71,7 @@ class DebugCamera: Camera {
         
     }
     
-    func setMousePosToCenter() {
+    private func setMousePosToCenter() {
         
         CGEvent(
             mouseEventSource: nil,
@@ -82,7 +82,7 @@ class DebugCamera: Camera {
         
     }
     
-    func moveWhenKeyPressed(_ deltaTime: Float) {
+    private func moveWhenKeyPressed(_ deltaTime: Float) {
         
         if Keyboard.isKeyPressed(.w) {
             self.position += Vector3f(.zero, .zero, -deltaTime * movingSpeed).rotated(by: rotation)
@@ -101,6 +101,15 @@ class DebugCamera: Camera {
         } else if Keyboard.isKeyPressed(.e) {
             self.position += Vector3f(.zero, deltaTime * movingSpeed, .zero)
         }
+        
+    }
+    
+    func lookAt(_ target: Vector3f) {
+        
+        var matrix: Matrix4x4f = .identity
+        matrix.lookat(from: position, to: target, up: Math.yAxis)
+        
+        self.rotation = -matrix.getRotation()
         
     }
     

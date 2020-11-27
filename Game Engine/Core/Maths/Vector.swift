@@ -56,6 +56,10 @@ extension Vector3f {
         return Vector2f(self.x, self.y)
     }
     
+    var asVector4f: Vector4f {
+        return Vector4f(self.x, self.y, self.z, 1)
+    }
+    
     var magnitude: Float {
         return Math.getMagnitude(of: self)
     }
@@ -104,29 +108,78 @@ extension Vector3f {
     
 }
 
-// Vector4 (aka Color)
+// Vector3 (aka RGB Color)
+extension Vector3f {
+    
+    static var red: Vector3f {
+        return .init(1, 0, 0)
+    }
+    static var green: Vector3f {
+        return .init(0, 1, 0)
+    }
+    static var blue: Vector3f {
+        return .init(0, 0, 1)
+    }
+    static var black: Vector3f {
+        return .init(0, 0, 0)
+    }
+    static var white: Vector3f {
+        return .init(1, 1, 1)
+    }
+    static var gray: Vector3f {
+        return .init(0.5,0.5,0.5)
+    }
+    static func gray(_ color: Float)->Vector3f {
+        return .init(color, color, color)
+    }
+    
+    static var random: Vector3f {
+        return .init(
+            .random(in: 0...1),
+            .random(in: 0...1),
+            .random(in: 0...1)
+        )
+    }
+    
+    
+}
+
+// Vector4 (aka RGBA Color)
 extension Vector4f {
     
-    static var randomColor3: Vector4f {
-        
+    var asVector3f: Vector3f {
+        return Vector3f(self.x, self.y, self.z)
+    }
+    
+    static var red: Vector4f {
+        return .init(1, 0, 0, 1)
+    }
+    static var green: Vector4f {
+        return .init(0, 1, 0, 1)
+    }
+    static var blue: Vector4f {
+        return .init(0, 0, 1, 1)
+    }
+    static var black: Vector4f {
+        return .init(0, 0, 0, 1)
+    }
+    static var white: Vector4f {
+        return .init(1, 1, 1, 1)
+    }
+    static var gray: Vector4f {
+        return .init(0.5,0.5,0.5,1)
+    }
+    static func gray(_ color: Float)->Vector4f {
+        return .init(color, color, color, 1)
+    }
+    
+    static var random: Vector4f {
         return .init(
             .random(in: 0...1),
             .random(in: 0...1),
             .random(in: 0...1),
             Float(1)
         )
-        
-    }
-    
-    static var randomColor4: Vector4f {
-        
-        return .init(
-            .random(in: 0...1),
-            .random(in: 0...1),
-            .random(in: 0...1),
-            .random(in: 0...1)
-        )
-        
     }
     
 }

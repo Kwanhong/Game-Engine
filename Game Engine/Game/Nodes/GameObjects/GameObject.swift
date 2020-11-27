@@ -54,13 +54,13 @@ extension GameObject: Renderable {
         
         renderCommandEncoder?.setDepthStencilState(Graphics.State.depthStencil[.less])
         
-        renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
+        renderCommandEncoder?.setFragmentSamplerState(Graphics.State.sampler[.linear], index: 0)
         
         renderCommandEncoder?.setFragmentTexture(Entities.Res.texture[textureType], index: 0)
         
         renderCommandEncoder?.setFragmentBytes(&material, length: Material.stride, index: 1)
         
-        renderCommandEncoder?.setFragmentSamplerState(Graphics.State.sampler[.linear], index: 0)
+        renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
         
         mesh.drawPrimitives(renderCommandEncoder)
     }

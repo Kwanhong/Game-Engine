@@ -23,6 +23,8 @@ extension Float: Sizable { }
 
 extension Int32: Sizable { }
 
+extension UInt32: Sizable { }
+
 extension Vector2f: Sizable { }
 
 extension Vector3f: Sizable { }
