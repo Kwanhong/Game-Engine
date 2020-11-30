@@ -53,17 +53,13 @@ fragment half4 basic_fragment_shader(
     texture2d<float> texture [[texture(0)]]
 ) {
     
-    float4 color;
+    float4 color = material.color;
     
-    if (material.useTexture) {
+    if (!is_null_texture(texture)) {
         color = texture.sample(sampler2d, data.texcoord);
-    } else if (material.useMaterialColor) {
-        color = material.color;
-    } else {
-        color = data.color;
     }
     
-    if (material.usePhongShader) {
+    if (material.isLit) {
         
         float3 totalAmbient = float3(0, 0, 0);
         float3 totalDiffuse = float3(0, 0, 0);

@@ -1,63 +1,32 @@
 //
-//  Vector.swift
+//  Vector3.swift
 //  Game Engine
 //
-//  Created by 박관홍 on 2020/11/15.
+//  Created by 박관홍 on 2020/11/30.
 //
 
 import Foundation
-import MetalKit
 
-// Vector2
-extension Vector2f {
-    
-    var asCGPoint: CGPoint {
-        return CGPoint(x: CGFloat(self.x), y: CGFloat(self.y))
-    }
-    
-    var asVector3f: Vector3f {
-        return Vector3f(self.x, self.y, .zero)
-    }
-    
-    func asVector3f(z: Float)->Vector3f {
-        return Vector3f(x, y, z)
-    }
-    
-    var magnitude: Float {
-        return Math.getMagnitude(of: self)
-    }
-    
-    var normalized: Vector2f {
-        return Math.getNormalized(vector: self)
-    }
-    
-    mutating func setMagnitude(to magnitude: Float) {
-        Math.setMagnitude(magnitude, to: &self)
-    }
-    
-    mutating func normalize() {
-        Math.normalize(&self)
-    }
-    
-    mutating func rotate(to theta: Float) {
-        Math.rotate(vector: &self, to: theta)
-    }
-    
-    func rotated(to theta: Float)->Vector2f {
-        return Math.getRotated(vector: self, to: theta)
-    }
-    
-}
-
-// Vector3
 extension Vector3f {
     
-    var asVector2f: Vector2f {
-        return Vector2f(self.x, self.y)
-    }
+    var xy: Vector2f { return Vector2f(x, y) }
+    
+    var xz: Vector2f { return Vector2f(x, z) }
+    
+    var yx: Vector2f { return Vector2f(y, x) }
+    
+    var yz: Vector2f { return Vector2f(y, z) }
+    
+    var zx: Vector2f { return Vector2f(z, x) }
+    
+    var zy: Vector2f { return Vector2f(z, y) }
     
     var asVector4f: Vector4f {
-        return Vector4f(self.x, self.y, self.z, 1)
+        return Vector4f(self.x, self.y, self.z, .zero)
+    }
+    
+    func asVector4f(w: Float)->Vector4f {
+        return Vector4f(x, y, z, w)
     }
     
     var magnitude: Float {
@@ -77,7 +46,7 @@ extension Vector3f {
     }
     
     mutating func rotate(by rotation: Vector3f) {
-    
+        
         let xzVec = Math.getRotated(vector: Vector2f(x, z), to: rotation.y)
         self = Vector3f(xzVec.x, y, xzVec.y)
         
@@ -108,7 +77,7 @@ extension Vector3f {
     
 }
 
-// Vector3 (aka RGB Color)
+// RGB Color
 extension Vector3f {
     
     static var red: Vector3f {
@@ -138,47 +107,6 @@ extension Vector3f {
             .random(in: 0...1),
             .random(in: 0...1),
             .random(in: 0...1)
-        )
-    }
-    
-    
-}
-
-// Vector4 (aka RGBA Color)
-extension Vector4f {
-    
-    var asVector3f: Vector3f {
-        return Vector3f(self.x, self.y, self.z)
-    }
-    
-    static var red: Vector4f {
-        return .init(1, 0, 0, 1)
-    }
-    static var green: Vector4f {
-        return .init(0, 1, 0, 1)
-    }
-    static var blue: Vector4f {
-        return .init(0, 0, 1, 1)
-    }
-    static var black: Vector4f {
-        return .init(0, 0, 0, 1)
-    }
-    static var white: Vector4f {
-        return .init(1, 1, 1, 1)
-    }
-    static var gray: Vector4f {
-        return .init(0.5,0.5,0.5,1)
-    }
-    static func gray(_ color: Float)->Vector4f {
-        return .init(color, color, color, 1)
-    }
-    
-    static var random: Vector4f {
-        return .init(
-            .random(in: 0...1),
-            .random(in: 0...1),
-            .random(in: 0...1),
-            Float(1)
         )
     }
     

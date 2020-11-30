@@ -40,9 +40,7 @@ struct Material {
     float3 diffuse;
     float3 specular;
     float shininess;
-    bool useMaterialColor;
-    bool useTexture;
-    bool usePhongShader;
+    bool isLit;
 };
 
 struct LightData {

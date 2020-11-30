@@ -11,7 +11,7 @@ class F16Object: GameObject {
     
     init() {
         super.init(name: "F16 Object", meshType: .f16)
-        self.materialTextureType = .f16s
+        self.useModelGraphics()
         self.scale = Vector3f(repeating: 4)
     }
     

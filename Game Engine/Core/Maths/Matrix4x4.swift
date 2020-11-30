@@ -8,7 +8,6 @@
 import Foundation
 import MetalKit
 
-// Matrix 4 by 4
 extension Matrix4x4f {
     
     static var identity: Matrix4x4f {

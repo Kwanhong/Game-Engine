@@ -64,3 +64,29 @@ class Node {
     }
     
 }
+
+extension Node {
+    
+    func setScale(equalTo val: Float) {
+        self.scale = .init(val, val, val)
+    }
+    
+    func setScale(x: Float? = nil, y: Float? = nil, z: Float? = nil) {
+        if let x = x { self.scale.x = x }
+        if let y = y { self.scale.y = y }
+        if let z = z { self.scale.z = z }
+    }
+    
+    func setRotation(x: Float? = nil, y: Float? = nil, z: Float? = nil) {
+        if let x = x { self.rotation.x = x }
+        if let y = y { self.rotation.y = y }
+        if let z = z { self.rotation.z = z }
+    }
+
+    func setPosition(x: Float? = nil, y: Float? = nil, z: Float? = nil) {
+        if let x = x { self.position.x = x }
+        if let y = y { self.position.y = y }
+        if let z = z { self.position.z = z }
+    }
+
+}

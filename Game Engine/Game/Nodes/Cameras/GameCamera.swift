@@ -9,7 +9,7 @@ import Foundation
 import MetalKit
 import AppKit
 
-class DebugCamera: Camera {
+class GameCamera: Camera {
     
     var mouseSensitivity: Float = 1
     var movingSpeed: Float = 5
@@ -56,6 +56,10 @@ class DebugCamera: Camera {
         moveWhenKeyPressed(deltaTime)
         
     }
+    
+}
+
+extension GameCamera {
     
     private func lookAtMousePoint() {
         
@@ -104,13 +108,26 @@ class DebugCamera: Camera {
         
     }
     
+}
+
+extension GameCamera {
+    
     func lookAt(_ target: Vector3f) {
-        
         var matrix: Matrix4x4f = .identity
         matrix.lookat(from: position, to: target, up: Math.yAxis)
-        
         self.rotation = -matrix.getRotation()
-        
+    }
+    
+    func setRotation(x: Float? = nil, y: Float? = nil, z: Float? = nil) {
+        if let x = x { self.rotation.x = x }
+        if let y = y { self.rotation.y = y }
+        if let z = z { self.rotation.z = z }
+    }
+    
+    func setPosition(x: Float? = nil, y: Float? = nil, z: Float? = nil) {
+        if let x = x { self.position.x = x }
+        if let y = y { self.position.y = y }
+        if let z = z { self.position.z = z }
     }
     
 }

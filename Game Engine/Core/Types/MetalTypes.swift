@@ -78,9 +78,17 @@ struct Material: Sizable {
     var specular: Vector3f = .init(1, 1, 1)
     var shininess: Float = 5
     
-    var useMaterialColor: Bool = false
-    var useTexture: Bool = false
-    var usePhongShader: Bool = true
+    var isLit: Bool = true
+    
+}
+
+extension Material {
+    
+    static var standard: Material {
+        return Material()
+    }
+    
+    static let modelMaterial: Material? = nil
     
 }
 

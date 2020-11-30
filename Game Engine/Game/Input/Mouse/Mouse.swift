@@ -69,11 +69,11 @@ class Mouse {
     }
     
     public static func getMouseCameraPosition(camera: Camera)->Vector2f {
-        return camera.position.asVector2f - getMouseViewportPosition()
+        return camera.position.xy - getMouseViewportPosition()
     }
     
     public static func getMouseCameraDeltaPosition(camera: Camera)->Vector2f {
-        return camera.position.asVector2f - getMouseViewportDeltaPosition()
+        return camera.position.xy - getMouseViewportDeltaPosition()
     }
     
 }

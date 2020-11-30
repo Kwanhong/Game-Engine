@@ -12,8 +12,9 @@ class InstancedGameObject: Node {
     
     var nodes: [Node] = []
     
-    private var material = Material()
-    private var textureType: TextureType = .none
+    private var baseMaterial: Material? = .standard
+    private var baseTextureType: TextureType = .none
+    
     private var mesh: Mesh!
     private var modelConstantsBuffer: MTLBuffer!
     
@@ -82,43 +83,39 @@ extension InstancedGameObject: Renderable {
         
         renderCommandEncoder?.setVertexBuffer(modelConstantsBuffer, offset: 0, index: 2)
         
-        renderCommandEncoder?.setFragmentTexture(Entities.Res.texture[textureType], index: 0)
-        
-        renderCommandEncoder?.setFragmentBytes(&material, length: Material.stride, index: 1)
-        
         renderCommandEncoder?.setFragmentSamplerState(Graphics.State.sampler[.linear], index: 0)
         
-        mesh.drawPrimitives(renderCommandEncoder)
+        mesh.drawPrimitives(renderCommandEncoder, baseTextureType: baseTextureType, baseMaterial: baseMaterial)
     }
     
 }
 
 extension InstancedGameObject {
     
-    var materialColor: Vector4f {
-        get { return self.material.color } set {
-            self.material.color = newValue
-            self.material.useMaterialColor = true
-            self.material.useTexture = false
-        }
+    func setUserTexture(type: TextureType) {
+        self.baseTextureType = type
     }
     
-    var materialTextureType: TextureType {
-        get { return self.textureType } set {
-            self.textureType = newValue
-            self.material.useTexture = true
-            self.material.useMaterialColor = false
-        }
+    func setUserMaterial(material: Material?) {
+        self.baseMaterial = material
     }
     
-    var usePhongShader: Bool {
-        set { self.material.usePhongShader = newValue }
-        get { return self.material.usePhongShader }
+    func useModelGraphics() {
+        self.setUserTexture(type: .modelTexture)
+        self.setUserMaterial(material: .modelMaterial)
     }
     
-    var ambientColor: Vector3f {
-        set { self.material.ambient = newValue }
-        get { return self.material.ambient }
+    var material: Material? {
+        return self.baseMaterial
+    }
+    
+    var textureType: TextureType {
+        return self.baseTextureType
+    }
+    
+    var isLit: Bool {
+        set { self.baseMaterial?.isLit = newValue }
+        get { return self.baseMaterial?.isLit ?? false }
     }
     
 }

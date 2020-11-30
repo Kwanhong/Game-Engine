@@ -8,6 +8,7 @@
 import MetalKit
 
 enum TextureType: String {
+    case modelTexture = "modelTexture"
     case woodenBox = "wooden_box"
     case grass = "grass"
     case sky = "sky"
