@@ -20,8 +20,8 @@ class SandBoxScene: Scene {
         Keyboard.delegate = self
         
         // Camera
-        let camera = GameCamera()
-        camera.setPosition(x: 10, y: 2, z: 10)
+        let camera = GameCamera(projectionMode: .perspective)
+        camera.setPosition(x: 8, y: 2, z: 8)
         camera.lookAt(.zero)
         self.addCamera(camera)
         
@@ -46,7 +46,7 @@ class SandBoxScene: Scene {
         let skybox = GameObject(meshType: .builtInSkyBox)
         skybox.setScale(equalTo: 10)
         skybox.setPosition(y: 8)
-        skybox.setUserMaterial(material: .init(color: .white))
+        skybox.setUserMaterial(material: .standard)
         self.addChild(skybox)
         
         // Game Object
@@ -74,8 +74,11 @@ class SandBoxScene: Scene {
             
             light.setPosition(
                 x: cos(time + offset) * radius,
-                y: light.position.zx.angle + .pi,
                 z: sin(time + offset) * radius
+            )
+            
+            light.setRotation(
+                y: light.position.zx.angle + .pi
             )
             
             offset += tolerance
@@ -92,12 +95,24 @@ extension SandBoxScene: KeyboardDelegate {
     
     func onKeyReleased(keyCode: KeyCode) {
         
-        if keyCode == .space {
+        // Lights Color
+        if keyCode == .x {
             
             for light in lights {
                 let randomColor = Vector3f.random.normalized.asVector4f(w: 1) * 1.25
                 light.setUserMaterial(material: .init(color: randomColor, isLit: false))
                 light.lightColor = randomColor.xyz
+            }
+            
+        }
+        
+        // Camera Mode
+        if keyCode == .c {
+            
+            if cameraManager.currentCamera.settings.projectionMode == .perspective {
+                cameraManager.currentCamera.settings.projectionMode = .orthographic
+            } else {
+                cameraManager.currentCamera.settings.projectionMode = .perspective
             }
             
         }

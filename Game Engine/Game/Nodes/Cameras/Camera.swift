@@ -17,11 +17,25 @@ enum CameraProjectionMode {
     case orthographic
 }
 
+struct PerspectiveSettings {
+    var fovDegrees: Float = 45
+    var far: Float = 1000
+    var near: Float = 0.1
+}
+
+struct OrthographicSettings {
+    var left: Float = -5
+    var right: Float = 5
+    var bottom: Float = -5
+    var top: Float = 5
+    var far: Float = 1000
+    var near: Float = -1000
+}
+
 struct CameraSettings {
     var projectionMode: CameraProjectionMode = .perspective
-    var fovDegrees: Float = 45
-    var nearValue: Float = 0.1
-    var farValue: Float = 1000
+    var perspective = PerspectiveSettings()
+    var orthographic = OrthographicSettings()
 }
 
 protocol Camera {
@@ -46,15 +60,29 @@ extension Camera {
     }
     
     var projectionMatrix: Matrix4x4f {
+        
         if settings.projectionMode == .perspective {
+            
             return .perspective(
-                degreesFov: settings.fovDegrees,
+                degreesFov: settings.perspective.fovDegrees,
                 aspectRatio: Renderer.aspectRatio,
-                near: settings.nearValue,
-                far: settings.farValue
+                near: settings.perspective.near,
+                far: settings.perspective.far
             )
+            
         } else {
-            return .identity
+            
+            return .orthographic(
+                left: settings.orthographic.left,
+                right: settings.orthographic.right,
+                bottom: settings.orthographic.bottom,
+                top: settings.orthographic.top,
+                near: settings.orthographic.near,
+                far: settings.orthographic.far
+            )
+            
         }
+        
     }
+    
 }

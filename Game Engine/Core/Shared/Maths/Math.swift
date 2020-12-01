@@ -8,21 +8,7 @@
 import Foundation
 import MetalKit
 
-class Math {
-    
-    static var xAxis: Vector3f {
-        return Vector3f(1, 0, 0)
-    }
-    
-    static var yAxis: Vector3f {
-        return Vector3f(0, 1, 0)
-    }
-    
-    static var zAxis: Vector3f {
-        return Vector3f(0, 0, 1)
-    }
-    
-}
+class Math { }
 
 // Overall Float Methods
 extension Math {

@@ -26,3 +26,16 @@ class Preferences {
     static var startingSceneType: SceneType = .sandBox
     
 }
+
+// Blending Mode
+extension Preferences {
+    
+    static var isBlendingEnabled: Bool = false
+    static var rgbBlendOperation: MTLBlendOperation = .add
+    static var alphaBlendOperation: MTLBlendOperation = .add
+    static var sourceRgbBlendFactor: MTLBlendFactor = .sourceColor
+    static var sourceAlphaBlendFactor: MTLBlendFactor = .sourceColor
+    static var destinationRgbBlendFactor: MTLBlendFactor = .oneMinusSourceColor
+    static var destinationAlphaBlendFactor: MTLBlendFactor = .oneMinusSourceColor
+    
+}

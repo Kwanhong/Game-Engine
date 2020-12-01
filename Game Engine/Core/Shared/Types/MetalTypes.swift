@@ -58,6 +58,8 @@ struct Vertex: Sizable {
     var color: Vector4f
     var texcoord: Vector2f
     var normal: Vector3f = .one
+    var tangent: Vector3f = .one
+    var bitangent: Vector3f = .one
 }
 
 struct SceneConstants: Sizable {

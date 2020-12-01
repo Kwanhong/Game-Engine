@@ -36,6 +36,16 @@ vertex RasterizerData instanced_vertex_shader(
         float4(vertexIn.normal, 1)
     ).xyz;
     
+    data.surfaceTangent = (
+        modelConsts[instanceId].modelMatrix *
+        float4(vertexIn.tangent, 1)
+    ).xyz;
+    
+    data.surfaceBitangent = (
+        modelConsts[instanceId].modelMatrix *
+        float4(vertexIn.bitangent, 1)
+    ).xyz;
+    
     data.position = (
         sceneConsts.projectionMatrix *
         sceneConsts.viewMatrix *

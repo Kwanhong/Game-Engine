@@ -22,6 +22,7 @@ class RenderPipelineState: NSObject {
             renderPipelineState = try Engine.device.makeRenderPipelineState(
                 descriptor: Graphics.Desc.renderPipeline[type]!
             )
+            
         } catch {
             print("Error, Make render pipelineState: \(name), \(error)")
         }

@@ -76,9 +76,9 @@ extension Matrix4x4f {
     
     mutating func rotate(rotation: Vector3f) {
         
-        self.rotate(angle: rotation.x, axis: Math.xAxis)
-        self.rotate(angle: rotation.y, axis: Math.yAxis)
-        self.rotate(angle: rotation.z, axis: Math.zAxis)
+        self.rotate(angle: rotation.x, axis: .right)
+        self.rotate(angle: rotation.y, axis: .up)
+        self.rotate(angle: rotation.z, axis: .forward)
         
     }
     
@@ -144,6 +144,29 @@ extension Matrix4x4f {
         )
         
         self.multiply(with: result)
+    }
+    
+    static func orthographic(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float)->Matrix4x4f {
+        
+        let sx: Float = 2 / (right - left)
+        let sy: Float = 2 / (top - bottom)
+        let sz: Float = -2 / (far - near)
+        
+        let mx: Float = -(right + left) / (right - left)
+        let my: Float = -(top + bottom) / (top - bottom)
+        let mz: Float = -(far + near) / (far - near)
+        
+        var result: Matrix4x4f = .identity
+        
+        result.columns = (
+            Vector4f(sx, 0, 0, 0),
+            Vector4f( 0,sy, 0, 0),
+            Vector4f( 0, 0,sz, 0),
+            Vector4f(mx,my,mz, 1)
+        )
+        
+        return result
+        
     }
     
     static func perspective(degreesFov: Float, aspectRatio: Float, near: Float, far: Float)->Matrix4x4f {

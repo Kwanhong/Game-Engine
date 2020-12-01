@@ -14,6 +14,7 @@ class InstancedGameObject: Node {
     
     private var baseMaterial: Material? = .standard
     private var baseTextureType: TextureType = .none
+    private var baseNormalMapType: TextureType = .none
     
     private var mesh: Mesh!
     private var modelConstantsBuffer: MTLBuffer!
@@ -85,7 +86,13 @@ extension InstancedGameObject: Renderable {
         
         renderCommandEncoder?.setFragmentSamplerState(Graphics.State.sampler[.linear], index: 0)
         
-        mesh.drawPrimitives(renderCommandEncoder, baseTextureType: baseTextureType, baseMaterial: baseMaterial)
+        mesh.drawPrimitives(
+            renderCommandEncoder,
+            baseTextureType: baseTextureType,
+            baseNormalMapType: baseNormalMapType,
+            baseMaterial: baseMaterial
+        )
+        
     }
     
 }
@@ -100,8 +107,13 @@ extension InstancedGameObject {
         self.baseMaterial = material
     }
     
+    func setUserNormalMap(type: TextureType) {
+        self.baseNormalMapType = type
+    }
+    
     func useModelGraphics() {
-        self.setUserTexture(type: .modelTexture)
+        self.setUserTexture(type: .modelDefault)
+        self.setUserNormalMap(type: .modelDefault)
         self.setUserMaterial(material: .modelMaterial)
     }
     
@@ -111,6 +123,10 @@ extension InstancedGameObject {
     
     var textureType: TextureType {
         return self.baseTextureType
+    }
+    
+    var normalMapType: TextureType {
+        return self.baseNormalMapType
     }
     
     var isLit: Bool {

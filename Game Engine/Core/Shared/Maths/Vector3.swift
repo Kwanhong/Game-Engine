@@ -9,6 +9,18 @@ import Foundation
 
 extension Vector3f {
     
+    static var right: Vector3f {
+        return Vector3f(1, 0, 0)
+    }
+    
+    static var up: Vector3f {
+        return Vector3f(0, 1, 0)
+    }
+    
+    static var forward: Vector3f {
+        return Vector3f(0, 0, 1)
+    }
+    
     var xy: Vector2f { return Vector2f(x, y) }
     
     var xz: Vector2f { return Vector2f(x, z) }

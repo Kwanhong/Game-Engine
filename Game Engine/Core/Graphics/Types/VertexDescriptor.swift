@@ -21,6 +21,8 @@ struct VertexDescriptorConfig {
     var color: VertexDescriptorAttributesConfig
     var texcoord: VertexDescriptorAttributesConfig
     var normal: VertexDescriptorAttributesConfig
+    var tangent: VertexDescriptorAttributesConfig
+    var bitangent: VertexDescriptorAttributesConfig
     
 }
 
@@ -53,6 +55,16 @@ class VertexDescriptor: NSObject {
         descriptor.attributes[3].format = config.normal.format
         descriptor.attributes[3].bufferIndex = config.normal.bufferIndex
         descriptor.attributes[3].offset = config.normal.offset
+        
+        // Tangent
+        descriptor.attributes[4].format = config.tangent.format
+        descriptor.attributes[4].bufferIndex = config.tangent.bufferIndex
+        descriptor.attributes[4].offset = config.tangent.offset
+        
+        // Bitangent
+        descriptor.attributes[5].format = config.bitangent.format
+        descriptor.attributes[5].bufferIndex = config.bitangent.bufferIndex
+        descriptor.attributes[5].offset = config.bitangent.offset
         
         descriptor.layouts[0].stride = Vertex.stride
         

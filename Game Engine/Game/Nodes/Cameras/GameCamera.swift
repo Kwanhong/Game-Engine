@@ -11,7 +11,7 @@ import AppKit
 
 class GameCamera: Camera {
     
-    var mouseSensitivity: Float = 1
+    var mouseSensitivity: Float = 0.5
     var movingSpeed: Float = 5
     
     var cameraType: CameraType = .debug
@@ -35,6 +35,10 @@ class GameCamera: Camera {
             return false
         }
         
+    }
+    
+    init(projectionMode: CameraProjectionMode = .perspective) {
+        self.settings.projectionMode = projectionMode
     }
     
     func update(deltaTime: Float) {
@@ -63,15 +67,24 @@ extension GameCamera {
     
     private func lookAtMousePoint() {
         
-        let hype = settings.farValue / cos(settings.fovDegrees.toRadians)
-        let farWidth = sqrt((hype * hype) - (settings.farValue * settings.farValue)) * 2
+        let hype = settings.perspective.far / cos(settings.perspective.fovDegrees.toRadians)
+        var farWidth: Float = .zero
+        var farValue: Float = .zero
+        
+        if settings.projectionMode == .orthographic {
+            farWidth = abs(settings.orthographic.left - settings.orthographic.right)
+            farValue = 25
+        } else {
+            farWidth = sqrt((hype * hype) - (settings.perspective.far * settings.perspective.far))
+            farValue = settings.perspective.far
+        }
         
         let mouse = Mouse.getMouseViewportPosition() * farWidth
-        let target = -mouse.asVector3f(z: settings.farValue - position.z)
+        let target = -mouse.asVector3f(z: farValue - position.z)
         
-        var delta = Matrix4x4f.identity
-        delta.lookat(from: .zero, to: target, up: Math.yAxis)
-        rotation += delta.getRotation() * mouseSensitivity
+        var matrix = Matrix4x4f.identity
+        matrix.lookat(from: .zero, to: target, up: .up)
+        rotation += matrix.getRotation() * mouseSensitivity
         
     }
     
@@ -114,7 +127,7 @@ extension GameCamera {
     
     func lookAt(_ target: Vector3f) {
         var matrix: Matrix4x4f = .identity
-        matrix.lookat(from: position, to: target, up: Math.yAxis)
+        matrix.lookat(from: position, to: target, up: .up)
         self.rotation = -matrix.getRotation()
     }
     

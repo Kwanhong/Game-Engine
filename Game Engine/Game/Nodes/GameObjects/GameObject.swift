@@ -12,6 +12,7 @@ class GameObject: Node {
     
     private var baseMaterial: Material? = .standard
     private var baseTextureType: TextureType = .none
+    private var baseNormalMapType: TextureType = .none
     
     private var mesh: Mesh!
     private var modelConstants = ModelConstants()
@@ -59,7 +60,13 @@ extension GameObject: Renderable {
         
         renderCommandEncoder?.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
         
-        mesh.drawPrimitives(renderCommandEncoder, baseTextureType: baseTextureType, baseMaterial: baseMaterial)
+        mesh.drawPrimitives(
+            renderCommandEncoder,
+            baseTextureType: baseTextureType,
+            baseNormalMapType: baseNormalMapType,
+            baseMaterial: baseMaterial
+        )
+        
     }
     
 }
@@ -74,8 +81,13 @@ extension GameObject {
         self.baseMaterial = material
     }
     
+    func setUserNormalMap(type: TextureType) {
+        self.baseNormalMapType = type
+    }
+    
     func useModelGraphics() {
-        self.setUserTexture(type: .modelTexture)
+        self.setUserTexture(type: .modelDefault)
+        self.setUserNormalMap(type: .modelDefault)
         self.setUserMaterial(material: .modelMaterial)
     }
     
@@ -85,6 +97,10 @@ extension GameObject {
     
     var textureType: TextureType {
         return self.baseTextureType
+    }
+    
+    var normalMapType: TextureType {
+        return self.baseNormalMapType
     }
     
     var isLit: Bool {

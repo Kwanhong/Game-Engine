@@ -5,7 +5,10 @@
 //  Created by 박관홍 on 2020/11/19.
 //
 
-#include <metal_stdlib>
+#ifndef SHARED_METAL
+#define SHARED_METAL
+
+#import <metal_stdlib>
 using namespace metal;
 
 struct VertexIn {
@@ -13,6 +16,8 @@ struct VertexIn {
     float4 color[[attribute(1)]];
     float2 texcoord[[attribute(2)]];
     float3 normal[[attribute(3)]];
+    float3 tangent[[attribute(4)]];
+    float3 bitangent[[attribute(5)]];
 };
 
 struct RasterizerData {
@@ -20,8 +25,10 @@ struct RasterizerData {
     float4 color;
     float2 texcoord;
     float3 worldPosition;
-    float3 surfaceNormal;
     float3 toCameraVector;
+    float3 surfaceNormal;
+    float3 surfaceTangent;
+    float3 surfaceBitangent;
 };
 
 struct SceneConstants {
@@ -51,3 +58,5 @@ struct LightData {
     float diffuseIntensity;
     float specularIntensity;
 };
+
+#endif
