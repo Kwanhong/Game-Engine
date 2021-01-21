@@ -9,11 +9,14 @@ import MetalKit
 
 class GameView: MTKView {
     
+    static var nsview: NSView!
     var renderer: Renderer!
     
     required init(coder: NSCoder) {
         
         super.init(coder: coder)
+        
+        GameView.nsview = self
         
         self.device = MTLCreateSystemDefaultDevice()
         Engine.Ignite(device: device!)
@@ -46,6 +49,14 @@ extension GameView {
 
 // Mouse Button Input
 extension GameView {
+    
+    override func mouseEntered(with event: NSEvent) {
+        Mouse.isOnWindow = true
+    }
+    
+    override func mouseExited(with event: NSEvent) {
+        Mouse.isOnWindow = false
+    }
     
     override func mouseDown(with event: NSEvent) {
         Mouse.setMouseButtonPressed(button: event.buttonNumber, isOn: true)
@@ -99,7 +110,12 @@ extension GameView {
     override func updateTrackingAreas() {
         let area = NSTrackingArea(
             rect: self.bounds,
-            options: [.activeAlways, .mouseMoved, .enabledDuringMouseDrag],
+            options: [
+                .mouseMoved,
+                .mouseEnteredAndExited,
+                .enabledDuringMouseDrag,
+                .activeAlways
+            ],
             owner: self, userInfo: nil
         )
         self.addTrackingArea(area)

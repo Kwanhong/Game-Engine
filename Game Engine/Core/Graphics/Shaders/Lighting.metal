@@ -39,23 +39,23 @@ public: static float3 PhongSader(
             totalDiffuse += clamp((
                 (material.diffuse * lightData.diffuseIntensity) *
                 (lightData.color * lightData.brightness) *
-                max(dot( // Surface normal dot product
+                abs(max(dot( // Surface normal dot product
                     unitNormal,
                     normalize(lightData.position - worldPosition)
                 ), 0.0)
-            ), 0.0, 1.0);
+            )), 0.0, 1.0);
             
             totalSpecular += clamp((
                 (material.specular * lightData.specularIntensity) *
                 (lightData.color * lightData.brightness) *
-                pow(max(dot( // Refection normal dot product
+                abs(pow(max(dot( // Refection normal dot product
                     normalize(unitToCameraVector),
                     normalize(reflect((
                         worldPosition -
                         lightData.position
                     ), unitNormal))
                 ), 0.0), material.shininess)
-            ), 0.0, 1.0);
+            )), 0.0, 1.0);
             
         }
         

@@ -66,6 +66,7 @@ extension Renderer: MTKViewDelegate {
         
         let deltaTime = 1 / Float(view.preferredFramesPerSecond)
         SceneManager.tickScene(renderCommandEncoder: renderCommandEncoder, deltaTime: deltaTime)
+        Mouse.lateUpdate()
         
         renderCommandEncoder?.endEncoding()
         

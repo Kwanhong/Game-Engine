@@ -11,8 +11,9 @@ import AppKit
 
 class GameCamera: Camera {
     
-    var mouseSensitivity: Float = 0.5
-    var movingSpeed: Float = 5
+    var minUpTiltDegrees: Float = 90
+    var mouseSensitivity: Float = 3
+    var movingSpeed: Float = 7
     
     var cameraType: CameraType = .debug
     var settings: CameraSettings = .init()
@@ -20,16 +21,20 @@ class GameCamera: Camera {
     var rotation: Vector3f = .zero
     var position: Vector3f = .zero
     
-    private var wasWindowFocused: Bool = false
+    var fovConstant: Float {
+        return 1 / pow(settings.perspective.fovDegrees / 45, 3.3)
+    }
+    
     private var isWindowFocused: Bool {
         
+        let pos = Mouse.getMouseViewportPosition()
         guard let window = NSApplication.shared.windows.first else {
             return false
         }
         
-        if Math.getDistance(
-            of: .zero, to: Mouse.getMouseViewportPosition()
-        ) < 1, window.isKeyWindow {
+        if abs(pos.x) < 0.8,
+           abs(pos.y) < 0.8,
+           window.isKeyWindow {
             return true
         } else {
             return false
@@ -39,25 +44,29 @@ class GameCamera: Camera {
     
     init(projectionMode: CameraProjectionMode = .perspective) {
         self.settings.projectionMode = projectionMode
+        
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            
+            if self.isWindowFocused {
+                CGWarpMouseCursorPosition(
+                    Renderer.screenCenter.asCGPoint
+                )
+            }
+            
+        }
+        
     }
     
     func update(deltaTime: Float) {
         
         if !isWindowFocused {
             NSCursor.unhide()
-            wasWindowFocused = false
             return
         }
-        if !wasWindowFocused {
-            NSCursor.hide()
-            setMousePosToCenter()
-            wasWindowFocused = true
-        } else {
-            lookAtMousePoint()
-            setMousePosToCenter()
-        }
         
+        NSCursor.hide()
         moveWhenKeyPressed(deltaTime)
+        lookAtMousePoint()
         
     }
     
@@ -67,56 +76,45 @@ extension GameCamera {
     
     private func lookAtMousePoint() {
         
-        let hype = settings.perspective.far / cos(settings.perspective.fovDegrees.toRadians)
-        var farWidth: Float = .zero
-        var farValue: Float = .zero
+        let mouse = Mouse.getMouseViewportDeltaPosition()
         
-        if settings.projectionMode == .orthographic {
-            farWidth = abs(settings.orthographic.left - settings.orthographic.right)
-            farValue = 25
-        } else {
-            farWidth = sqrt((hype * hype) - (settings.perspective.far * settings.perspective.far))
-            farValue = settings.perspective.far
-        }
-        
-        let mouse = Mouse.getMouseViewportPosition() * farWidth
-        let target = -mouse.asVector3f(z: farValue - position.z)
-        
-        var matrix = Matrix4x4f.identity
-        matrix.lookat(from: .zero, to: target, up: .up)
-        rotation += matrix.getRotation() * mouseSensitivity
-        
-    }
-    
-    private func setMousePosToCenter() {
-        
-        CGEvent(
-            mouseEventSource: nil,
-            mouseType: .mouseMoved,
-            mouseCursorPosition: Renderer.screenCenter.asCGPoint,
-            mouseButton: .left
-        )?.post(tap: .cgSessionEventTap)
+        self.rotation.y += mouse.x * mouseSensitivity
+        self.rotation.x -= mouse.y * mouseSensitivity
         
     }
     
     private func moveWhenKeyPressed(_ deltaTime: Float) {
         
+        let dash: Float = Keyboard.isKeyPressed(.space) ? 5 : 1
+        
         if Keyboard.isKeyPressed(.w) {
-            self.position += Vector3f(.zero, .zero, -deltaTime * movingSpeed).rotated(by: rotation)
+            var dir = Vector2f(00,-1).rotated(to: rotation.y)
+            dir.setMagnitude(to: deltaTime * movingSpeed * dash)
+            move(direction: .init(dir.x, .zero, dir.y))
         } else if Keyboard.isKeyPressed(.s) {
-            self.position += Vector3f(.zero, .zero, deltaTime * movingSpeed).rotated(by: rotation)
+            var dir = Vector2f(00,01).rotated(to: rotation.y)
+            dir.setMagnitude(to: deltaTime * movingSpeed * dash)
+            move(direction: .init(dir.x, .zero, dir.y))
         }
         
         if Keyboard.isKeyPressed(.a) {
-            self.position += Vector3f(-deltaTime * movingSpeed, .zero, .zero).rotated(by: rotation)
+            var dir = Vector2f(-1,00).rotated(to: rotation.y)
+            dir.setMagnitude(to: deltaTime * movingSpeed * dash)
+            move(direction: .init(dir.x, .zero, dir.y))
         } else if Keyboard.isKeyPressed(.d) {
-            self.position += Vector3f(deltaTime * movingSpeed, .zero, .zero).rotated(by: rotation)
+            var dir = Vector2f(01,00).rotated(to: rotation.y)
+            dir.setMagnitude(to: deltaTime * movingSpeed * dash)
+            move(direction: .init(dir.x, .zero, dir.y))
         }
         
         if Keyboard.isKeyPressed(.q) {
-            self.position += Vector3f(.zero, -deltaTime * movingSpeed, .zero)
+            var dir = Vector3f(00,-1,00)
+            dir.setMagnitude(to: deltaTime * movingSpeed * dash)
+            move(direction: dir)
         } else if Keyboard.isKeyPressed(.e) {
-            self.position += Vector3f(.zero, deltaTime * movingSpeed, .zero)
+            var dir = Vector3f(00,01,00)
+            dir.setMagnitude(to: deltaTime * movingSpeed * dash)
+            move(direction: dir)
         }
         
     }
@@ -129,6 +127,19 @@ extension GameCamera {
         var matrix: Matrix4x4f = .identity
         matrix.lookat(from: position, to: target, up: .up)
         self.rotation = -matrix.getRotation()
+    }
+    
+    func move(direction dir: Vector3f) {
+        move(x: dir.x, y: dir.y, z: dir.z)
+    }
+    
+    func move(x: Float? = nil, y: Float? = nil, z: Float? = nil) {
+        if let x = x { self.position.x += x }
+        if let y = y { self.position.y += y }
+        if let z = z { self.position.z += z }
+        if position.z == .zero {
+            position.z = .leastNormalMagnitude
+        }
     }
     
     func setRotation(x: Float? = nil, y: Float? = nil, z: Float? = nil) {

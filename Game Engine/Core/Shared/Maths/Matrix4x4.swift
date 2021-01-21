@@ -130,17 +130,17 @@ extension Matrix4x4f {
         
         var result: Matrix4x4f = .identity
         
-        var zaxis = (target - origin).normalized
-        let xaxis = Math.getCrossProducted(vector1: zaxis, vector2: up).normalized
-        let yaxis = Math.getCrossProducted(vector1: xaxis, vector2: zaxis)
+        var z: Vector3f = (target - origin).normalized
+        let x: Vector3f = Math.getCrossProducted(vector1: z, vector2: up.normalized)
+        let y: Vector3f = Math.getCrossProducted(vector1: x, vector2: z)
         
-        zaxis *= -1
+        z *= -1
         
         result.columns = (
-            Vector4f(xaxis.x, xaxis.y, xaxis.z, Math.getDotProducted(vector1: xaxis, vector2: origin)),
-            Vector4f(yaxis.x, yaxis.y, yaxis.z, Math.getDotProducted(vector1: yaxis, vector2: origin)),
-            Vector4f(zaxis.x, zaxis.y, zaxis.z, Math.getDotProducted(vector1: zaxis, vector2: origin)),
-            Vector4f(0, 0, 0, 1)
+            Vector4f(x.x, x.y, x.z, 0.0),
+            Vector4f(y.x, y.y, y.z, 0.0),
+            Vector4f(z.x, z.y, z.z, 0.0),
+            Vector4f(0.0, 0.0, 0.0, 1.0)
         )
         
         self.multiply(with: result)

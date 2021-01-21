@@ -10,6 +10,8 @@ import MetalKit
 
 class Mouse {
     
+    public static var isOnWindow: Bool = false
+    
     private static var mouseButtonCount: Int = 12
     private static var mouseButtons: [Bool] = .init(repeating: false, count: mouseButtonCount)
     
@@ -19,6 +21,10 @@ class Mouse {
     private static var scrollWheelPosition: Float = .zero
     private static var lastWheelPosition: Float = .zero
     private static var scrollWheelChange: Float = .zero
+    
+    public static func lateUpdate() {
+        mouseDeltaPosition = .zero
+    }
     
     public static func setMouseButtonPressed(button: Int, isOn: Bool) {
         mouseButtons[button] = isOn
@@ -51,8 +57,16 @@ class Mouse {
     public static func getMouseViewportDeltaPosition()->Vector2f {
         let position = mouseDeltaPosition
         let screenSize = Renderer.screenSize
-        let x = Math.map(position.x, start1: .zero, stop1: screenSize.x, start2: -1, stop2: 1)
-        let y = Math.map(position.y, start1: .zero, stop1: screenSize.y, start2: -1, stop2: 1)
+        let x = Math.map(
+            position.x,
+            start1: -screenSize.x * 0.5, stop1: screenSize.x * 0.5,
+            start2: -1, stop2: 1
+        )
+        let y = Math.map(
+            position.y,
+            start1: screenSize.y * 0.5, stop1: -screenSize.y * 0.5,
+            start2: -1, stop2: 1
+        )
         return Vector2f(x, y)
     }
     

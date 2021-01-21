@@ -59,29 +59,49 @@ extension Vector3f {
     
     mutating func rotate(by rotation: Vector3f) {
         
-        let xzVec = Math.getRotated(vector: Vector2f(x, z), to: rotation.y)
-        self = Vector3f(xzVec.x, y, xzVec.y)
+        self.rotate(x: rotation.x, y: rotation.y, z: rotation.z)
         
-        let xyVec = Math.getRotated(vector: Vector2f(x, y), to: rotation.z)
-        self = Vector3f(xyVec.x, xyVec.y, z)
+    }
+    
+    mutating func rotate(x: Float? = nil, y: Float? = nil, z: Float? = nil) {
         
-        let yzVec = Math.getRotated(vector: Vector2f(y, z), to: rotation.x)
-        self = Vector3f(x, -yzVec.x, yzVec.y)
+        if let y = y {
+            let xzVec = Math.getRotated(vector: Vector2f(self.x, self.z), to: y)
+            self = Vector3f(xzVec.x, self.y, xzVec.y)
+        }
+        if let z = z {
+            let xyVec = Math.getRotated(vector: Vector2f(self.x, self.y), to: z)
+            self = Vector3f(xyVec.x, xyVec.y, self.z)
+        }
+        if let x = x {
+            let yzVec = Math.getRotated(vector: Vector2f(self.y, self.z), to: x)
+            self = Vector3f(self.x, -yzVec.x, yzVec.y)
+        }
         
     }
     
     func rotated(by rotation: Vector3f)->Vector3f {
         
+        return self.rotated(x: rotation.x, y: rotation.y, z: rotation.z)
+        
+    }
+    
+    func rotated(x: Float? = nil, y: Float? = nil, z: Float? = nil)->Vector3f {
+        
         var result = self
         
-        let yzVec = Vector2f(result.y, result.z).rotated(to: rotation.x)
-        result = Vector3f(result.x, yzVec.x, yzVec.y)
-        
-        let xzVec = Vector2f(result.x, result.z).rotated(to: rotation.y)
-        result = Vector3f(xzVec.x, result.y, xzVec.y)
-        
-        let xyVec = Vector2f(result.x, result.y).rotated(to: rotation.z)
-        result = Vector3f(xyVec.x, -xyVec.y, result.z)
+        if let y = y {
+            let xzVec = Math.getRotated(vector: Vector2f(result.x, result.z), to: y)
+            result = Vector3f(xzVec.x, result.y, xzVec.y)
+        }
+        if let z = z {
+            let xyVec = Math.getRotated(vector: Vector2f(result.x, result.y), to: z)
+            result = Vector3f(xyVec.x, xyVec.y, result.z)
+        }
+        if let x = x {
+            let yzVec = Math.getRotated(vector: Vector2f(result.y, result.z), to: x)
+            result = Vector3f(result.x, -yzVec.x, yzVec.y)
+        }
         
         return result
         

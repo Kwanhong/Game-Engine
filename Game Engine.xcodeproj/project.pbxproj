@@ -330,9 +330,9 @@
 		5193BF122565085A004D85BB /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				5193BF4525652410004D85BB /* Nodes */,
 				51197170254551F5002A8059 /* Managers */,
 				510A13992556B203005A7DB3 /* Input */,
+				5193BF4525652410004D85BB /* Nodes */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -354,7 +354,6 @@
 				51DA4DC0255B79980062D9C9 /* GameObjects */,
 				5192A372256B505E0005D275 /* LightObjects */,
 				5119714E2543E933002A8059 /* Node.swift */,
-				511971542543EA2A002A8059 /* Renderable.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -413,8 +412,8 @@
 			children = (
 				5193BF122565085A004D85BB /* Game */,
 				51D3EB6A2521E88900D03A9C /* Core */,
-				51D3EB6C2521E8A400D03A9C /* Displays */,
 				5192A330256785FF0005D275 /* Resources */,
+				51D3EB6C2521E8A400D03A9C /* Displays */,
 				51D3EB632521E82F00D03A9C /* XCode Files */,
 			);
 			path = "Game Engine";
@@ -479,6 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				5119713C2543E1B9002A8059 /* Renderer.swift */,
+				511971542543EA2A002A8059 /* Renderable.swift */,
 				51D3EB482521CDCC00D03A9C /* GameView.swift */,
 				51D3EB192521CB0900D03A9C /* Main.storyboard */,
 			);
@@ -882,6 +882,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.trheed.Game-Engine";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -902,6 +903,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.trheed.Game-Engine";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

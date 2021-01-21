@@ -81,6 +81,10 @@ extension GameObject {
         self.baseMaterial = material
     }
     
+    func setUserColor(color: Vector4f) {
+        self.baseMaterial?.color = color
+    }
+    
     func setUserNormalMap(type: TextureType) {
         self.baseNormalMapType = type
     }
